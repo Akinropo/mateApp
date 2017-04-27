@@ -1,0 +1,23 @@
+<tabs>
+    <tab id="@+id/tab_post"
+        title="Post"
+        icon="@drawable/ic_post" />
+    <tab id="@+id/tab_cm"
+        title="CM"
+        icon="@drawable/ic_coursemate"
+        barColorWhenSelected="#5D4037"
+        />
+    <tab id="@+id/tab1_chat"
+        title="Chat"
+        icon="@drawable/ic_chat"
+        />
+    <tab id="@+id/tab_discover"
+        title="Discover"
+        icon="@drawable/ic_discover"
+        />
+    <tab id="@+id/tab_me"
+        title="Me"
+        icon="@drawable/ic_user_account"
+        barColorWhenSelected="#5D4037"
+        />
+</tabs>

@@ -1,0 +1,122 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/test_drawable"
+    tools:context="com.akinropo.taiwo.coursemate.AllFragments.DiscoverFeature">
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/disFeature_scrollView">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Department[leave to find any department]"
+                android:textColor="@android:color/white"
+                android:layout_margin="@dimen/disFeature_text"/>
+            <android.support.v7.widget.AppCompatSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/discover_feature_editexts_border"
+                android:padding="20dp"
+                android:id="@+id/disFeature_department">
+            </android.support.v7.widget.AppCompatSpinner>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Faculty[leave to find any faculty]"
+                android:textColor="@android:color/white"
+                android:layout_margin="@dimen/disFeature_text"/>
+            <android.support.v7.widget.AppCompatSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/discover_feature_editexts_border"
+                android:padding="20dp"
+                android:id="@+id/disFeature_faculty">
+            </android.support.v7.widget.AppCompatSpinner>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sex"
+                android:textColor="@android:color/white"
+                android:layout_margin="@dimen/disFeature_text"/>
+            <android.support.v7.widget.AppCompatSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/discover_feature_editexts_border"
+                android:padding="20dp"
+                android:id="@+id/disFeature_sex">
+            </android.support.v7.widget.AppCompatSpinner>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Interest"
+                android:visibility="gone"
+                android:textColor="@android:color/white"
+                android:layout_margin="@dimen/disFeature_text"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/disFeature_interest"
+                android:padding="@dimen/disFeature_editext_padding"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:hint="[ leave empty not to use interest ]"
+                android:background="@drawable/discover_feature_editexts_border"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discover"
+                android:background="@drawable/disfeature_button_selector_bg"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dip"
+                android:textColor="@color/colorPrimaryDark"
+                android:id="@+id/disFeature_discoverBut"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:id="@+id/disFeature_loading_freechaters"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal|bottom">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?attr/progressBarStyle"
+            android:layout_centerInParent="true"
+            android:indeterminateBehavior="repeat"
+            android:id="@+id/disFeature_progressbar"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/discover_feature_loading"
+            android:scaleType="centerCrop"
+            android:layout_below="@+id/disFeature_progressbar"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/imageView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Discovering freechaters..."
+            android:layout_gravity="bottom|center"
+            android:id="@+id/disFeature_progressbar_text"
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+
+</FrameLayout>

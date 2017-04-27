@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        applicationId "com.akinropo.taiwo.coursemate"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    //compile 'org.igniterealtime.smack-android-extensions:4.1.0-alpha6'
+    //compile 'org.igniterealtime.smack-tcp:4.1.0-alpha6'
+    //compile 'hani.momanii.supernova_emoji_library:supernova-emoji-library:0.0.2'
+    // AUTH
+    //DATABASE FIREBASE,UI
+    // compile 'com.firebaseui:firebase-ui-database:10.0.1'
+    //STORAGE FIREBASE
+    //Places SERVICES
+    repositories {
+        maven { url "https://dl.bintray.com/hani-momanii/maven"
+            }
+        maven { url "https://jitpack.io" }
+        maven {
+            url 'https://dl.bintray.com/vsvankhede/maven/'
+        }
+        mavenCentral()
+    }
+    compile 'hani.momanii.supernova_emoji_library:supernova-emoji-library:0.0.2'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.roughike:bottom-bar:2.0.2'
+    compile 'com.android.support:palette-v7:23.4.0'
+    compile 'com.android.support:cardview-v7:23.4.0'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
+    compile 'me.himanshusoni.chatmessageview:chat-message-view:1.0.3'
+    compile 'com.google.android.gms:play-services-auth:10.0.1'
+    compile 'com.google.firebase:firebase-auth:10.0.1'
+    compile 'com.google.firebase:firebase-database:10.0.1'
+    compile 'com.google.firebase:firebase-storage:10.0.1'
+    compile 'com.google.android.gms:play-services-places:10.0.1'
+    compile 'pub.devrel:easypermissions:0.2.0'
+    compile 'com.github.javiersantos:AppUpdater:2.0.1'
+    //compile 'com.codemybrainsout.onboarding:onboarder:1.0.3'
+    compile 'com.vstechlab.easyfonts:easyfonts:1.0.0'
+    compile 'com.github.medyo:android-about-page:1.0'
+    compile 'com.google.firebase:firebase-storage:10.0.1'
+    compile 'com.firebaseui:firebase-ui-storage:0.6.0'
+    compile 'com.github.iammert:MaterialIntroView:1.6.0'
+    compile 'com.github.paolorotolo:appintro:3.1.0'
+}
+apply plugin: 'com.google.gms.google-services'

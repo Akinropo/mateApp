@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.akinropo.taiwo.coursemate">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_dirt"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".AllActivities.LogoScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AllActivities.LoginActivity"
+            android:label="@string/sign_in" />
+        <activity android:name=".AllActivities.SettingsActivity" />
+        <activity
+            android:name=".AllActivities.FacebookActivity"
+            android:theme="@style/welcomeStyle" />
+        <activity
+            android:name=".AllActivities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/welcomeStyle" />
+        <activity
+            android:name=".AllActivities.EditActivity"
+            android:theme="@style/welcomeStyle" />
+        <activity
+            android:name=".AllActivities.CourseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/welcomeStyle" />
+        <activity
+            android:name=".AllActivities.AddCoursemateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/welcomeStyle" />
+        <activity android:name=".AllActivities.FireBaseActivity" />
+
+        <service android:name=".FirebaseChat.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".FirebaseChat.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".AllActivities.DiscoverActivity"
+            android:parentActivityName=".AllActivities.MainActivity"
+            android:theme="@style/welcomeStyle" />
+        <activity
+            android:name=".FirebaseChat.ChatActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/welcomeStyle" />
+        <activity
+            android:name=".AllActivities.CreateGroup"
+            android:theme="@style/welcomeStyle" />
+        <activity
+            android:name=".AllActivities.AddMemberGroup"
+            android:theme="@style/welcomeStyle" />
+        <activity
+            android:name=".AllActivities.GroupProfile"
+            android:theme="@style/welcomeStyle" />
+        <activity android:name=".AllActivities.SearchActivity" />
+        <activity android:name=".AllActivities.AboutActivity" />
+        <activity android:name=".AllActivities.MateIntro"></activity>
+    </application>
+
+</manifest>

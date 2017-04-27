@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "478166884295",
+    "firebase_url": "https://coursemate-95329.firebaseio.com",
+    "project_id": "coursemate-95329",
+    "storage_bucket": "coursemate-95329.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:478166884295:android:e1309ebe3f9163b9",
+        "android_client_info": {
+          "package_name": "com.akinropo.taiwo.coursemate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "478166884295-s4l13l4vl6f1qg3vllkuljcd6dou13cv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxS3xDJ9ZW2f-JNdSpnL_WVyBF8ewieo0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

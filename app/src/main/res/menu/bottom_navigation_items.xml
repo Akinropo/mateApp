@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item android:icon="@drawable/ic_home" android:title="Home" app:showAsAction="always"
+    android:orderInCategory="200" android:id="@+id/menu_home"/>
+    <item android:icon="@drawable/ic_coursemate" android:title="Coursemates" app:showAsAction="always"
+        android:orderInCategory="300" android:id="@+id/menu_coursemates" />
+    <item android:icon="@drawable/ic_discover" android:title="Groups" app:showAsAction="ifRoom"
+        android:orderInCategory="400" android:id="@+id/menu_group" />
+    <item android:icon="@drawable/ic_user_account" android:title="Me" app:showAsAction="ifRoom"
+        android:orderInCategory="500" android:id="@+id/menu_me" />
+
+</menu>

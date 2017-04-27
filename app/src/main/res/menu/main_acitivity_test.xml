@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:icon="@drawable/ic_coursemate_add" android:title="Request"
+        app:showAsAction="always" android:orderInCategory="100"
+        android:id="@+id/notification_request"/>
+   <item android:icon="@drawable/ic_action_chat" app:showAsAction="always"
+       android:title="New Message" android:orderInCategory="300"
+       android:id="@+id/notification_chat"/>
+    <item android:icon="@drawable/ic_action_search" android:title="Search"
+        app:showAsAction="always|collapseActionView" android:orderInCategory="400"
+        android:id="@+id/notification_search"/>
+</menu>

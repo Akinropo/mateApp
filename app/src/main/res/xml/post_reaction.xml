@@ -1,0 +1,11 @@
+<tabs>
+<tab id="@+id/post_action_like"
+    icon="@drawable/ic_action_like"
+    />
+<tab id="@+id/post_action_unlike"
+    icon="@drawable/ic_action_unlike"
+    />
+    <tab id="@+id/post_action_unlike"
+        icon="@drawable/circle_shape_white"
+        />
+</tabs>

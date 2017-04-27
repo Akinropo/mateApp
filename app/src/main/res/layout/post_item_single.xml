@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:bottom="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        card_view:cardCornerRadius="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        card_view:cardElevation="7dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardPreventCornerOverlap="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/post_item_padding_top_bottom"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/post_item_padding_left_right"
+                android:paddingRight="@dimen/post_item_padding_left_right" >
+                <ImageView
+                    android:layout_width="@dimen/post_item_profile_pic"
+                    android:layout_height="@dimen/post_item_profile_pic"
+                    android:src="@drawable/ic_user_account"
+                    android:id="@+id/post_profile_pic"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/post_item_profile_info_padd">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/post_profile_name"
+                        android:text="Akinropo Taiwo"
+                        android:textColor="@android:color/black"
+                        android:singleLine="true"
+                        android:textSize="@dimen/post_item_profile_name"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:id="@+id/post_timestamp"
+                        android:text="22h"
+                        android:textColor="@color/timestamp"
+                        android:textSize="@dimen/post_item_timestamp" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/post_message_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="@string/no_course_yet"
+                android:paddingBottom="@dimen/card_margin"
+                android:paddingLeft="@dimen/post_item_status_pad_left_right"
+                android:paddingRight="@dimen/post_item_status_pad_left_right"
+                android:paddingTop="@dimen/post_item_status_pad_top" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_message_readmore"
+                android:text="continue reading..."
+                android:paddingLeft="@dimen/post_item_status_pad_left_right"
+                android:textColor="@color/colorAccent"
+                android:visibility="gone"
+                />
+            <TextView
+                android:id="@+id/post_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:linksClickable="true"
+                android:paddingBottom="10dp"
+                android:visibility="gone"
+                android:text="http://icoursemate.com"
+                android:paddingLeft="@dimen/post_item_status_pad_left_right"
+                android:paddingRight="@dimen/post_item_status_pad_left_right"
+                android:textColorLink="@color/link"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_attach_image"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_user_account"
+                android:background="@android:color/white"
+                android:visibility="gone"/>
+            <!--
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_action_like"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_action_unlike"/>
+            </LinearLayout> -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:paddingLeft="8dp"
+                 android:paddingRight="8dp">
+
+
+                 <ImageButton
+                     android:id="@+id/post_attach_btnLike"
+                     android:layout_width="48dp"
+                     android:layout_height="48dp"
+                     android:scaleType="centerInside"
+                     android:padding="3dp"
+                     android:layout_marginLeft="3dp"
+                     android:background="@drawable/btn_feed_action"
+                     android:src="@drawable/ic_like_outline_grey" />
+
+
+                 <ImageButton
+                     android:id="@+id/post_attach_btnUnlike"
+                     android:layout_width="48dp"
+                     android:layout_height="48dp"
+                     android:layout_marginLeft="7dp"
+                     android:scaleType="centerInside"
+                     android:padding="3dp"
+                     android:background="@drawable/btn_feed_action"
+                     android:src="@drawable/ic_unlike_outline_grey" />
+             </LinearLayout>
+
+</LinearLayout>
+
+    </android.support.v7.widget.CardView>

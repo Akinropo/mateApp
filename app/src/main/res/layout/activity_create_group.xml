@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/test_drawable"
+    tools:context="com.akinropo.taiwo.coursemate.AllActivities.CreateGroup">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:title="@string/createGroup"
+        android:background="@android:color/white"
+        app:titleTextColor="@color/colorPrimaryDark"
+        android:id="@+id/create_group_toolbar">
+    </android.support.v7.widget.Toolbar>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/disFeature_scrollView">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create new Group"
+                android:textColor="@android:color/white"
+                android:layout_margin="@dimen/disFeature_text"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/create_group_name"
+                android:padding="@dimen/disFeature_editext_padding"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/fade_white"
+                android:hint="Group name"
+                android:singleLine="true"
+                android:background="@drawable/discover_feature_editexts_border"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Group"
+                android:padding="5dp"
+                android:background="@drawable/disfeature_button_selector_bg"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dip"
+                android:textColor="@color/colorPrimaryDark"
+                android:id="@+id/create_group_submit"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

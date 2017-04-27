@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorPrimaryDark">#388E3C</color>
+    <color name="primary_light">#C8E6C9</color>
+    <color name="test_primary_light">#65c768</color>
+    <color name="colorAccent">#03A9F4</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+    <color name="fade_white">#e5e5e5</color>
+    <color name="input_login">#222222</color>
+    <color name="input_login_hint">#999999</color>
+    <color name="btn_login">#26ae90</color>
+    <color name="btn_login_bg">#eceef1</color>
+    <color name="cm_background">#daafe2ba</color>
+    <color name="feed_bg">#d3d6db</color>
+    <color name="feed_item_bg">#ffffff</color>
+    <color name="feed_item_border">#c2c3c8</color>
+    <color name="link">#0a80d1</color>
+    <color name="deep_blue">#1603e6</color>
+    <color name="timestamp">#a0a3a7</color>
+
+    <!-- firebase bonfire colors -->
+    <color name="disabled_grey">#A0A0A0</color>
+    <color name="selected_item">#fff0e9</color>
+
+    <color name="background_grey">#eeeeee</color>
+    <color name="text_grey">#8B000000</color>
+    <color name="text_grey_light">#59000000</color>
+    <color name="background_grey_alt">#e4e4e4</color>
+    <color name="bubble_grey">#dcdcdc</color>
+    <color name="text_black">#E3000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="row_activated">#e0e0e0</color>
+    <color name="bg_action_mode">#757575</color>
+    <color name="bg_circle_default">#666666</color>
+
+</resources>

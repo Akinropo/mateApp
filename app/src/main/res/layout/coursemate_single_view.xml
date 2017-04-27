@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground"
+    android:layout_marginTop="5dp">
+    <ImageView
+        android:layout_width="@dimen/cm_single_photo"
+        android:layout_height="@dimen/cm_single_photo"
+        android:id="@+id/request_photo"
+        android:src="@drawable/ic_user_account"
+        android:layout_marginRight="7dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/cm_single_text"
+        android:textColor="@color/primary_text"
+        android:text="Akinropo Taiwo Damilare"
+        android:textStyle="bold"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="4dp"
+        android:singleLine="true"
+        android:layout_toRightOf="@id/request_photo"
+        android:id="@+id/request_name"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="Computer Science"
+        android:singleLine="true"
+        android:id="@+id/request_major"
+        android:layout_below="@+id/request_name"
+        android:layout_alignLeft="@+id/request_name"
+        android:layout_alignStart="@+id/request_name" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="FREECHAT"
+        android:singleLine="true"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/freechat_symbol"
+        android:layout_below="@+id/request_name"
+        android:layout_alignParentRight="true"
+        android:visibility="invisible"
+        android:layout_margin="5sp"/>
+    <TextView android:id="@+id/unread_count"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:textSize="10dp"
+        android:textColor="@android:color/white"
+        android:layout_above="@id/freechat_symbol"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentRight="true"
+        android:text="5"
+        android:visibility="gone"
+        android:background="@drawable/count_bg"/>
+    <View
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:background="@drawable/count_bg"
+        android:layout_toRightOf="@+id/request_name"
+        android:layout_marginLeft="5sp"
+        android:layout_marginTop="3sp"
+        android:id="@+id/request_presence"
+        android:visibility="gone"
+        />
+</RelativeLayout>

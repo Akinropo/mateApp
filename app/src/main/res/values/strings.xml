@@ -1,0 +1,164 @@
+<resources>
+    <string name="app_name">Mate</string>
+    <string name="sign_in">Login</string>
+    <string name="login_logo">Login Logo</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="hint_surname">Surname</string>
+    <string name="hint_othername">Othername (s)</string>
+    <string name="hint_email">Email address</string>
+    <string name="hint_phone">Phone Number</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm password</string>
+    <string name="btn_sign_up">Sign up</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sex_male">Male</string>
+    <string name="sex_female">Female</string>
+    <string name="hint_major">Major ( your department )</string>
+    <string name="hint_highschool">High school</string>
+    <string name="btn_update_profile">Update profile</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="no_coursemate_yet">You have no coursemate \n you can add coursemate that you know or \n Discover coursemates in your school.</string>
+    <string name="no_group_yet">You are not in any group yet \n you can create a new group or \n you can be added in a group</string>
+    <string name="no_course_yet">No registered course(s) yet.</string>
+    <string name="dummy_text">This is a dummy text,Jesus is the son of God , this is what everyone knows ,God has been the one that has been helping me since i was born .He has make life worth living for me.</string>
+    <string name="disFeature_edit_hint">[ leave empty for any major ]</string>
+    <string name="createGroup">Create Group</string>
+    <string name="fcm_api_key">
+        AAAAb1T3n8c:APA91bEmveUGRAhDBndNvVsitT-KR9-GrhIWkQVH-7SKNDJYUWIHGX-KiiHM5N4Hpa7sWop2DX7oTn-51BwJ1QPwNk5JcaDuC9Bwi8lYJ4-aspywslxdV1fE0B2KuqFTenc7CjE0vbHd
+    </string>
+    <string-array name="sex_picker">
+        <item>Choose sex</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Any sex</item>
+    </string-array>
+    <string-array name="faculty_picker">
+        <item>Choose your Faculty</item>
+        <item>Science</item>
+        <item>Technology</item>
+        <item>Social Science</item>
+        <item>Law</item>
+        <item>Arts</item>
+        <item>Agric &amp; Forestry</item>
+        <item>Education</item>
+        <item>Pharmacy</item>
+        <item>College of Medicine</item>
+        <item>Veterinary Medicine</item>
+        <item>Dentistry</item>
+        <item>Public Health</item>
+    </string-array>
+    <string-array name="year_picker">
+        <item>Select Your Year of Entry</item>
+        <item>2016/2017</item>
+        <item>2015/2016</item>
+        <item>2014/2015</item>
+        <item>2013/2014</item>
+        <item>2012/2013</item>
+        <item>2011/2012</item>
+        <item>2010/2011</item>
+        <item>2009/2010</item>
+        <item>2008/2009</item>
+        <item>2007/2008</item>
+        <item>2006/2007</item>
+        <item>2005/2006</item>
+        <item></item>
+    </string-array>
+    <string name="title_activity_test">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="prefs_notifications_category_1">Notification</string>
+    <string name="prefs_notifications_nSoundStr">Play sound for incoming messages.</string>
+    <string name="prefs_notifications_category_2">Message notification</string>
+    <string name="prefs_notifications_sNotificationStr">Toggle notifcations on/off for messages.</string>
+    <string name="prefs_notifications_vibrateStr">Turn on/off vibration when new notification is received.</string>
+    <string name="prefs_notifications_category_3">Group notification</string>
+    <string name="prefs_notifications_gNotificationStr">Toggle notification on/off for group messages.</string>
+    <string name="prefs_notifications_gVibrateStr">Turn on/off vibration when new group notification is received.</string>
+    <string name="app_description"> <b>mate</b> is a network of students that aims to facilitate learning and also
+    help connect students together.\n <b><i>The campus network.</i></b> <a href="http://imate.herokuapp.com">Visit website</a> \n
+    </string>
+    <string name="desc1">Find mates in your department,faculties and the school in general</string>
+    <string name="desc2">Meet new students using search and freechat feature in the app.</string>
+    <string name="des3">Post and read realtime information about your campus.</string>
+    <string name="des4">Chat with your mates easily directly or in groups</string>
+    <string-array name="department_picker">
+        <item>Choose your department</item>
+        <item>Adult Education</item>
+        <item>Agricultural and Environmental Engineering</item>
+        <item>Agricultural Economics</item>
+        <item>Agricultural Extension and Rural Development</item>
+        <item>Agriculture</item>
+        <item>Agronomy</item>
+        <item>Animal Science</item>
+        <item>Anthropology(Arts)</item>
+        <item>Anthropology(Science)</item>
+        <item>Arabic and Islamic Studies</item>
+        <item>Archaeology(Arts)</item>
+        <item>Archaeology(Science)</item>
+        <item>Biochemistry</item>
+        <item>Botany</item>
+        <item>Chemistry</item>
+        <item>Civil Engineering</item>
+        <item>Classics</item>
+        <item>Communication and Language Arts</item>
+        <item>Computer Science</item>
+        <item>Crop Protection and Environmental Biology</item>
+        <item>Dental Surgery</item>
+        <item>Economics</item>
+        <item>Educational Management</item>
+        <item>Electrical and Electronics Engineering</item>
+        <item>English</item>
+        <item>European Studies</item>
+        <item>Food Technology</item>
+        <item>Forest Resources Management</item>
+        <item>Geography(Science)</item>
+        <item>Geography(Social Science)</item>
+        <item>Geology</item>
+        <item>Guidance and Counselling</item>
+        <item>History</item>
+        <item>Human Kinetics and Health Education</item>
+        <item>Human Nutrition</item>
+        <item>Industrial and Production Engineering</item>
+        <item>Law</item>
+        <item>Library Archival and Infomation Studies</item>
+        <item>Linguistics and African Languages</item>
+        <item>Mathematics</item>
+        <item>Mechanical Engineering</item>
+        <item>Medical Laboratory Science</item>
+        <item>Medicine and Surgery</item>
+        <item>Microbiology</item>
+        <item>Music</item>
+        <item>Nursing</item>
+        <item>Petroleum Engineering</item>
+        <item>Pharmacy</item>
+        <item>Philosophy</item>
+        <item>Physics</item>
+        <item>Physiology</item>
+        <item>Physiotherapy</item>
+        <item>Political Science</item>
+        <item>Psychology</item>
+        <item>Religious Studies</item>
+        <item>Sociology</item>
+        <item>Special Education</item>
+        <item>Statistics</item>
+        <item>Teacher Education</item>
+        <item>Theatre Arts</item>
+        <item>Veterinary Medicine</item>
+        <item>Wildlife and Fisheries Management</item>
+        <item>Zoology</item>
+    </string-array>
+</resources>
