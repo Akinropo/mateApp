@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<item android:title="Log out"
-    android:id="@+id/me_profile_logout"
-    android:orderInCategory="300"
-    app:showAsAction="never"/>
-    <item android:title="Settings"
+    <item
+        android:id="@+id/me_profile_logout"
+        android:orderInCategory="300"
+        android:title="Log out"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/me_profile_settings"
-        app:showAsAction="never"
-        android:orderInCategory="200"/>
-    <item android:title="About"
+        android:orderInCategory="200"
+        android:title="Settings"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/me_profile_about"
-        app:showAsAction="never"
-        android:orderInCategory="400"/>
+        android:orderInCategory="400"
+        android:title="About"
+        app:showAsAction="never" />
 
 </menu>

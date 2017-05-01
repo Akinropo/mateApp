@@ -19,26 +19,23 @@ public class BarNotification {
     SetNofificationListener listener;
     MyPreferenceManager manager;
 
-    public BarNotification(Context context){
+    public BarNotification(Context context) {
         this.context = context;
         this.recentChatManager = new RecentChatManager(context);
     }
-    public void setListener(SetNofificationListener listener){
+
+    public void setListener(SetNofificationListener listener) {
         this.listener = listener;
     }
-    public void init(){
+
+    public void init() {
         boolean show = recentChatManager.isNotification();
         listener.onMessageChange(show);
         isFriendRequest();
 
     }
 
-
-    public interface SetNofificationListener{
-        void onMessageChange(boolean state); //state is false when there is no notification and true when there is;
-        void onRequestChange(boolean state);
-    }
-    public void isFriendRequest(){
+    public void isFriendRequest() {
         manager = new MyPreferenceManager(context);
         ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
         Call<ServerResponse> checkCmRequest = apiInterface.checkCmRequest(manager.getId());
@@ -53,5 +50,11 @@ public class BarNotification {
 
             }
         });
+    }
+
+    public interface SetNofificationListener {
+        void onMessageChange(boolean state); //state is false when there is no notification and true when there is;
+
+        void onRequestChange(boolean state);
     }
 }

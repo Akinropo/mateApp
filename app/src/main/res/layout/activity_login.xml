@@ -26,13 +26,13 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:id="@+id/linearLayout2">
+        android:paddingRight="20dp">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -87,8 +87,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Remember Me"
             android:layout_marginBottom="6dp"
+            android:text="Remember Me"
             android:textColor="@color/secondary_text"
             android:textSize="15dp"
             android:textStyle="bold" />

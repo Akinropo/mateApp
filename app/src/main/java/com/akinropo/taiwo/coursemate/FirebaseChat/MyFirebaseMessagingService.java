@@ -10,7 +10,6 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.akinropo.taiwo.coursemate.AllActivities.FireBaseActivity;
 import com.akinropo.taiwo.coursemate.ApiClasses.EndPoints;
@@ -27,9 +26,6 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by TAIWO on 1/30/2017.
  */
@@ -43,22 +39,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        Log.e("from: ",remoteMessage.getFrom());
-        if(remoteMessage == null) return;
-        if(remoteMessage.getNotification() != null){
+        Log.e("from: ", remoteMessage.getFrom());
+        if (remoteMessage == null) return;
+        if (remoteMessage.getNotification() != null) {
             handleNotification(remoteMessage.getNotification().getBody());
             Log.e("notification body: ", remoteMessage.getNotification().getBody());
             //Toast.makeText(getApplicationContext(), "notification body is my guy", Toast.LENGTH_SHORT).show();
         }
-        if(remoteMessage.getData().size() > 0){
+        if (remoteMessage.getData().size() > 0) {
             //handleDataMessage(new JSONObject(remoteMessage.getData().toString()));
             //this.sendNotification(new JSONObject(remoteMessage.getData().toString()));
             determine(new JSONObject(remoteMessage.getData()));
-            Log.e("notification body: ","hi i recieve a push notification right now.");
+            Log.e("notification body: ", "hi i recieve a push notification right now.");
         }
         Log.e("notification body: ", "hi i recieve a notification right now.");
 
     }
+
     private void handleNotification(String message) {
         if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
             // app is in foreground, broadcast the push message
@@ -69,10 +66,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             // play notification sound
             NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
             notificationUtils.playNotificationSound();
-        }else{
+        } else {
             // If the app is in background, firebase itself handles the notification
         }
     }
+
     private void handleDataMessage(JSONObject json) {
         Log.e(TAG, "push json: " + json.toString());
 
@@ -144,8 +142,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         notificationUtils.showNotificationMessage(title, message, timeStamp, intent, imageUrl);
     }
+
     private void sendNotification(JSONObject jsonObject) {
-        GroupRes group  = null;
+        GroupRes group = null;
         User user = null;
         //Toast.makeText(MyFirebaseMessagingService.this, "Executing send notification in Service", Toast.LENGTH_SHORT).show();
         try {
@@ -155,17 +154,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String message = data.getString(EndPoints.TOPIC_MESSAGE);
             String senderPhoto = data.getString(EndPoints.PHOTO_BASE_URL + EndPoints.TOPIC_SENDER_PHOTO);
             int flag = data.getInt(EndPoints.TOPIC_FLAG);
-            if(flag == EndPoints.TOPIC_FLAG_GROUP){
+            if (flag == EndPoints.TOPIC_FLAG_GROUP) {
                 group = new GroupRes();
                 group.setIsOwner(false);
                 group.setGroupId(senderId); // make sender id the group id in groups
                 group.setGroupName(senderFullname);
                 updateNotification(senderId, senderFullname, message, true, group, user);
-            }else if(flag == EndPoints.TOPIC_FLAG_MESSAGE){
+            } else if (flag == EndPoints.TOPIC_FLAG_MESSAGE) {
                 user = new User();
                 user.setFirstname(senderFullname);
                 user.setId(senderId);
-                updateNotification(senderId, senderFullname, message, true,group,user);
+                updateNotification(senderId, senderFullname, message, true, group, user);
             }
 
         } catch (JSONException e) {
@@ -173,17 +172,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-    private void updateNotification(int senderId, String senderFullName, String message, boolean needSound,GroupRes group,User user) {
+    private void updateNotification(int senderId, String senderFullName, String message, boolean needSound, GroupRes group, User user) {
         /*if (DialogPresenter.getCurrentPeerId() != null) {
             return;
         }*/
         Intent intent = new Intent(this, ChatActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         //intent.putExtra(DialogActivity.KEY_PEER_ID, senderId);
-        if(group != null){
-            intent.putExtra(EndPoints.PASSED_GROUP,group);
-        }else if(user != null){
-            intent.putExtra(EndPoints.PASSED_USER,user);
+        if (group != null) {
+            intent.putExtra(EndPoints.PASSED_GROUP, group);
+        } else if (user != null) {
+            intent.putExtra(EndPoints.PASSED_USER, user);
         }
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
@@ -202,7 +201,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(senderFullName.hashCode(), notificationBuilder.build());
     }
-    public void determine(JSONObject jsonObject){
+
+    public void determine(JSONObject jsonObject) {
         Intent resultIntent;
         try {
             int flag = jsonObject.getInt(EndPoints.TOPIC_FLAG);
@@ -211,42 +211,42 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String message = jsonObject.getString(EndPoints.TOPIC_MESSAGE);
             String timestamp = jsonObject.getString(EndPoints.TOPIC_TIMESTAMP);
             recentChatManager = new RecentChatManager(this);
-            Log.e("notification body: ","hi,the values "+name+" "+message+" "+timestamp+" "+id+" "+flag);
-            if(flag == EndPoints.TOPIC_FLAG_GROUP){
+            Log.e("notification body: ", "hi,the values " + name + " " + message + " " + timestamp + " " + id + " " + flag);
+            if (flag == EndPoints.TOPIC_FLAG_GROUP) {
                 //create a new group class and also store the value in table if exist add the number of unread message
                 //then broadcast to the recent chats fragments
                 int groupOwner = jsonObject.getInt(EndPoints.TOPIC_GROUP_OWNER);
                 manager = new MyPreferenceManager(getApplicationContext());
-                boolean owner  = groupOwner == manager.getId();
+                boolean owner = groupOwner == manager.getId();
                 GroupRes group = new GroupRes();
                 group.setGroupId(id);
                 group.setIsOwner(owner);
                 group.setGroupName(name); //group class created now create
                 resultIntent = ChatActivity.createIntentForGroup(getApplicationContext(), group);
-                recentChatManager.addRecent(flag,id,name,1," ",timestamp,groupOwner);
+                recentChatManager.addRecent(flag, id, name, 1, " ", timestamp, groupOwner);
 
-            }else {
+            } else {
                 String major = jsonObject.getString(EndPoints.TOPIC_SENDER_MAJOR);
                 String photoUrl = jsonObject.getString(EndPoints.TOPIC_SENDER_PHOTO);
-                String[] names = name.split(" ",2);
+                String[] names = name.split(" ", 2);
                 User user = new User();
                 user.setId(id);
                 user.setPhoto(photoUrl);
                 user.setMajor(major);
                 user.setFirstname(names[0]);
                 user.setOthername(names[1]);
-                resultIntent = ChatActivity.createIntentFor(getApplicationContext(),user);
-                resultIntent.putExtra(EndPoints.PASSED_ID,user.getId());
-                recentChatManager.addRecent(flag,id,name,1,photoUrl,timestamp,0);
+                resultIntent = ChatActivity.createIntentFor(getApplicationContext(), user);
+                resultIntent.putExtra(EndPoints.PASSED_ID, user.getId());
+                recentChatManager.addRecent(flag, id, name, 1, photoUrl, timestamp, 0);
             }
 
-            if(NotificationUtils.isAppIsInBackground(getApplicationContext())){
+            if (NotificationUtils.isAppIsInBackground(getApplicationContext())) {
                 //the app is in background, play notification sound and create notifictaion tray.
                 Intent i = new Intent(EndPoints.NEW_MESSAGE_BROADCAST); //broadcast reciever's intent.
                 notificationUtils = new NotificationUtils(getApplicationContext());
                 notificationUtils.playNotificationSound();
-                showNotificationMessage(getApplicationContext(),name,message,timestamp,resultIntent);
-            }else {
+                showNotificationMessage(getApplicationContext(), name, message, timestamp, resultIntent);
+            } else {
                 //play notification sound and send a broadcast of new message.
                 Intent i = new Intent(EndPoints.NEW_MESSAGE_BROADCAST);//broadcast receiver's intent.
                 LocalBroadcastManager.getInstance(this).sendBroadcast(i);

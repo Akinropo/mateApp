@@ -3,12 +3,21 @@ package com.akinropo.taiwo.coursemate.PrivateClasses;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 /**
  * Created by TAIWO on 1/6/2017.
  */
 public class User implements Parcelable {
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
     int id;
     String firstname;
     String othername;
@@ -34,18 +43,6 @@ public class User implements Parcelable {
         highschool = in.readString();
         phone = in.readString();
     }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 
     public User() {
 

@@ -1,86 +1,93 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.akinropo.taiwo.coursemate.AllFragments.DiscoverFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Discover Coursemates"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
             android:background="@color/colorAccent"
-            android:padding="3dp"/>
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Discover Coursemates"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/discover_sugggests"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="horizontal"
-            android:visibility="gone"
-            android:id="@+id/discover_sugggests"
-            ></android.support.v7.widget.RecyclerView>
+            android:visibility="gone"></android.support.v7.widget.RecyclerView>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical" android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/suggest_error_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="10dp">
+
             <ImageView
+                android:id="@+id/suggest_error_view_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/loading_go_round"
                 android:layout_gravity="center"
-                android:id="@+id/suggest_error_view_image"/>
+                android:src="@drawable/loading_go_round" />
+
             <TextView
+                android:id="@+id/suggest_error_view_word"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Loading..."
                 android:gravity="center"
-                android:id="@+id/suggest_error_view_word"
-                android:textSize="19dp"/>
+                android:text="Loading..."
+                android:textSize="19dp" />
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Discover Requests"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
             android:background="@color/colorAccent"
-            android:padding="3dp"/>
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Discover Requests"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/discover_requests"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/discover_requests">
+            android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/discover_freechat_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end|right"
         android:layout_marginBottom="27dp"
         android:layout_marginRight="@dimen/fab_margin"
-        app:fabSize="normal"
-        android:id="@+id/discover_freechat_fab"
         android:src="@drawable/ic_group_add"
-        android:layout_gravity="bottom|end|right"/>
+        app:fabSize="normal" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Freechat"
-        android:textStyle="bold|italic"
-        android:textColor="@android:color/white"
-        android:background="@drawable/disfeature_button_green_bg"
-        android:padding="5dp"
         android:layout_gravity="bottom|end|right"
         android:layout_marginRight="@dimen/fab_margin"
-        />
+        android:background="@drawable/disfeature_button_green_bg"
+        android:padding="5dp"
+        android:text="Freechat"
+        android:textColor="@android:color/white"
+        android:textStyle="bold|italic" />
 
 </FrameLayout>

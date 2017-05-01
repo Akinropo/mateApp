@@ -25,13 +25,14 @@ import java.io.IOException;
 public class CompressPhoto {
     Context context;
 
+    public CompressPhoto(Context context) {
+        this.context = context;
+    }
+
     public Context getContext() {
         return context;
     }
 
-    public CompressPhoto(Context context){
-        this.context = context;
-    }
     private String getRealPathFromURIPath(Uri contentURI, ContentResolver activity) {
         Cursor cursor = activity.query(contentURI, null, null, null, null);
         if (cursor == null) {
@@ -42,6 +43,7 @@ public class CompressPhoto {
             return cursor.getString(idx);
         }
     }
+
     public String compressImage(String imageUri) {
 
         String filePath = getRealPathFromURIPath(Uri.parse(imageUri), getContext().getContentResolver());
@@ -67,7 +69,11 @@ public class CompressPhoto {
 //      width and height values are set maintaining the aspect ratio of the image
 
         if (actualHeight > maxHeight || actualWidth > maxWidth) {
-            if (imgRatio < maxRatio) {               imgRatio = maxHeight / actualHeight;                actualWidth = (int) (imgRatio * actualWidth);               actualHeight = (int) maxHeight;             } else if (imgRatio > maxRatio) {
+            if (imgRatio < maxRatio) {
+                imgRatio = maxHeight / actualHeight;
+                actualWidth = (int) (imgRatio * actualWidth);
+                actualHeight = (int) maxHeight;
+            } else if (imgRatio > maxRatio) {
                 imgRatio = maxWidth / actualWidth;
                 actualHeight = (int) (imgRatio * actualHeight);
                 actualWidth = (int) maxWidth;
@@ -98,7 +104,7 @@ public class CompressPhoto {
 
         }
         try {
-            scaledBitmap = Bitmap.createBitmap(actualWidth, actualHeight,Bitmap.Config.ARGB_8888);
+            scaledBitmap = Bitmap.createBitmap(actualWidth, actualHeight, Bitmap.Config.ARGB_8888);
         } catch (OutOfMemoryError exception) {
             exception.printStackTrace();
         }
@@ -156,6 +162,7 @@ public class CompressPhoto {
         return filename;
 
     }
+
     public String getFilename() {
         File file = new File(Environment.getExternalStorageDirectory().getPath(), "Mate/Images");
         if (!file.exists()) {
@@ -165,15 +172,20 @@ public class CompressPhoto {
         return uriSting;
 
     }
+
     public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
 
         if (height > reqHeight || width > reqWidth) {
-            final int heightRatio = Math.round((float) height/ (float) reqHeight);
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
             final int widthRatio = Math.round((float) width / (float) reqWidth);
-            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;      }       final float totalPixels = width * height;       final float totalReqPixelsCap = reqWidth * reqHeight * 2;       while (totalPixels / (inSampleSize * inSampleSize) > totalReqPixelsCap) {
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+        final float totalPixels = width * height;
+        final float totalReqPixelsCap = reqWidth * reqHeight * 2;
+        while (totalPixels / (inSampleSize * inSampleSize) > totalReqPixelsCap) {
             inSampleSize++;
         }
 

@@ -8,29 +8,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by TAIWO on 1/18/2017.
  */
-public class GroupRes implements Parcelable{
-    @SerializedName("group_id")
-    int groupId;
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
-
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
-    }
-
-    @SerializedName("group_name")
-    String groupName;
-    @SerializedName("is_owner")
-    boolean isOwner;
-
-    public GroupRes(Parcel in) {
-        groupId = in.readInt();
-        groupName = in.readString();
-        isOwner = in.readByte() != 0;
-    }
-
+public class GroupRes implements Parcelable {
     public static final Creator<GroupRes> CREATOR = new Creator<GroupRes>() {
         @Override
         public GroupRes createFromParcel(Parcel in) {
@@ -42,6 +20,17 @@ public class GroupRes implements Parcelable{
             return new GroupRes[size];
         }
     };
+    @SerializedName("group_id")
+    int groupId;
+    @SerializedName("group_name")
+    String groupName;
+    @SerializedName("is_owner")
+    boolean isOwner;
+    public GroupRes(Parcel in) {
+        groupId = in.readInt();
+        groupName = in.readString();
+        isOwner = in.readByte() != 0;
+    }
 
     public GroupRes() {
 
@@ -59,10 +48,17 @@ public class GroupRes implements Parcelable{
         return groupName;
     }
 
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
     public int getGroupId() {
         return groupId;
     }
 
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
 
     @Override
     public int describeContents() {

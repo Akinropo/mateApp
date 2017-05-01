@@ -1,11 +1,8 @@
 package com.akinropo.taiwo.coursemate.AllActivities;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,14 +24,11 @@ import com.akinropo.taiwo.coursemate.AllFragments.FriendProfile;
 import com.akinropo.taiwo.coursemate.ApiClasses.ApiInterface;
 import com.akinropo.taiwo.coursemate.ApiClasses.ApiRetrofit;
 import com.akinropo.taiwo.coursemate.ApiClasses.EndPoints;
-import com.akinropo.taiwo.coursemate.PrivateClasses.CircleTransform;
+import com.akinropo.taiwo.coursemate.ApiClasses.ServerResponse;
 import com.akinropo.taiwo.coursemate.PrivateClasses.EndlessRecyclerViewScrollListener;
 import com.akinropo.taiwo.coursemate.PrivateClasses.MyPreferenceManager;
-import com.akinropo.taiwo.coursemate.ApiClasses.ServerResponse;
 import com.akinropo.taiwo.coursemate.PrivateClasses.User;
 import com.akinropo.taiwo.coursemate.R;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +38,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddCoursemateActivity extends AppCompatActivity {
-    Button byName,byPhone,byEmail,byDept,byFaculty,byCode;
+    static int searchType = 0;
+    static String searchQuery = null;
+    Button byName, byPhone, byEmail, byDept, byFaculty, byCode;
     EditText searchBox;
     ImageButton searchButton;
     LinearLayout searchLayout;
     ProgressBar progressBar;
-    static int searchType = 0;
-    static String searchQuery = null;
     RecyclerView resultList;
     List<User> searchList = new ArrayList<>();
     CoursemateAdapter coursemateAdapter;
@@ -63,57 +57,57 @@ public class AddCoursemateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_coursemate);
-        toolbar = (Toolbar)findViewById(R.id.cm_add_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.cm_add_toolbar);
         toolbar.setTitle("Add Coursemate");
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         toolbar.setNavigationIcon(R.mipmap.ic_logo);
         man = new MyPreferenceManager(getApplicationContext());
         userId = man.getId();
-        searchBox = (EditText)findViewById(R.id.coursemate_add_editext);
-        searchButton = (ImageButton)findViewById(R.id.coursemate_add_search);
-        searchLayout = (LinearLayout)findViewById(R.id.coursemate_add_search_layout);
-        progressBar = (ProgressBar)findViewById(R.id.coursemate_add_progress);
-        resultList = (RecyclerView)findViewById(R.id.coursemate_add_list);
-        byEmail = (Button)findViewById(R.id.coursemate_add_email);
-        byName = (Button)findViewById(R.id.coursemate_add_name);
-        byPhone = (Button)findViewById(R.id.coursemate_add_phone);
-        byDept = (Button)findViewById(R.id.coursemate_add_dept);
-        byFaculty = (Button)findViewById(R.id.coursemate_add_faculty);
-        byCode = (Button)findViewById(R.id.coursemate_add_code);
+        searchBox = (EditText) findViewById(R.id.coursemate_add_editext);
+        searchButton = (ImageButton) findViewById(R.id.coursemate_add_search);
+        searchLayout = (LinearLayout) findViewById(R.id.coursemate_add_search_layout);
+        progressBar = (ProgressBar) findViewById(R.id.coursemate_add_progress);
+        resultList = (RecyclerView) findViewById(R.id.coursemate_add_list);
+        byEmail = (Button) findViewById(R.id.coursemate_add_email);
+        byName = (Button) findViewById(R.id.coursemate_add_name);
+        byPhone = (Button) findViewById(R.id.coursemate_add_phone);
+        byDept = (Button) findViewById(R.id.coursemate_add_dept);
+        byFaculty = (Button) findViewById(R.id.coursemate_add_faculty);
+        byCode = (Button) findViewById(R.id.coursemate_add_code);
         byEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonVisibility(byEmail,byName,byPhone,byDept,byFaculty,byCode);
+                setButtonVisibility(byEmail, byName, byPhone, byDept, byFaculty, byCode);
             }
         });
         byName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonVisibility(byName,byEmail,byPhone,byDept,byFaculty,byCode);
+                setButtonVisibility(byName, byEmail, byPhone, byDept, byFaculty, byCode);
             }
         });
         byPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonVisibility(byPhone,byEmail,byName,byDept,byFaculty,byCode);
+                setButtonVisibility(byPhone, byEmail, byName, byDept, byFaculty, byCode);
             }
         });
         byDept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonVisibility(byDept,byEmail,byName,byPhone,byFaculty,byCode);
+                setButtonVisibility(byDept, byEmail, byName, byPhone, byFaculty, byCode);
             }
         });
         byFaculty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonVisibility(byFaculty,byEmail,byName,byDept,byPhone,byCode);
+                setButtonVisibility(byFaculty, byEmail, byName, byDept, byPhone, byCode);
             }
         });
         byCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setButtonVisibility(byCode,byEmail,byName,byDept,byFaculty,byPhone);
+                setButtonVisibility(byCode, byEmail, byName, byDept, byFaculty, byPhone);
             }
         });
         coursemateAdapter = new CoursemateAdapter(searchList);
@@ -122,7 +116,7 @@ public class AddCoursemateActivity extends AppCompatActivity {
         scrollListener = new EndlessRecyclerViewScrollListener(manager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                apiSearchCoursemateAdd(page,searchType,searchQuery);
+                apiSearchCoursemateAdd(page, searchType, searchQuery);
             }
         };
         resultList.setItemAnimator(new DefaultItemAnimator());
@@ -133,21 +127,20 @@ public class AddCoursemateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String q = searchBox.getText().toString();
-                if(!q.equals("")){
+                if (!q.equals("")) {
                     searchQuery = q;
-                    if(searchList.size() == 0){
-                        apiSearchCoursemateAdd(1,searchType,q);
-                    }else{
+                    if (searchList.size() == 0) {
+                        apiSearchCoursemateAdd(1, searchType, q);
+                    } else {
                         searchList.clear();
                         coursemateAdapter.notifyDataSetChanged();
                         scrollListener.resetState();
-                        apiSearchCoursemateAdd(0,searchType,q);
+                        apiSearchCoursemateAdd(0, searchType, q);
 
                     }
 
 
-
-                }else {
+                } else {
                     Toast.makeText(AddCoursemateActivity.this, "Can not search an empty query.", Toast.LENGTH_SHORT).show();
                 }
 
@@ -156,13 +149,13 @@ public class AddCoursemateActivity extends AppCompatActivity {
     }
 
 
-    public void setButtonVisibility(Button selButton,Button b1,Button b2,Button b3,Button b4,Button b5){
+    public void setButtonVisibility(Button selButton, Button b1, Button b2, Button b3, Button b4, Button b5) {
         b1.setVisibility(View.GONE);
         b2.setVisibility(View.GONE);
         b3.setVisibility(View.GONE);
         b4.setVisibility(View.GONE);
         b5.setVisibility(View.GONE);
-        switch (selButton.getId()){
+        switch (selButton.getId()) {
             case R.id.coursemate_add_name:
                 searchBox.setHint("Type in the name");
                 searchBox.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
@@ -193,24 +186,25 @@ public class AddCoursemateActivity extends AppCompatActivity {
         }
         searchLayout.setVisibility(View.VISIBLE);
     }
-    public void populate(List<User> mlist){
+
+    public void populate(List<User> mlist) {
         searchList.addAll(mlist);
         coursemateAdapter.notifyDataSetChanged();
     }
 
 
-    public void showBar(final boolean show){
+    public void showBar(final boolean show) {
         final LinearLayout box = searchLayout;
         Runnable run = new Runnable() {
             @Override
             public void run() {
-                if(show){
+                if (show) {
                     progressBar.setVisibility(View.VISIBLE);
                     progressBar.setAlpha(1.0f);
                     box.setAlpha(0.4f);
                     searchButton.setAlpha(0.6f);
                     searchButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_loading));
-                }else {
+                } else {
                     progressBar.setVisibility(View.INVISIBLE);
                     box.setAlpha(1f);
                     searchButton.setAlpha(1f);
@@ -219,81 +213,25 @@ public class AddCoursemateActivity extends AppCompatActivity {
             }
         };
         Handler mHandler = new Handler();
-        if(run != null){
+        if (run != null) {
             mHandler.post(run);
         }
     }
-    public class CoursemateHolder extends RecyclerView.ViewHolder{
-        TextView mateName,mateMajor;
-        ImageView matePhoto;
-        View mateView;
-        public CoursemateHolder(View itemView) {
-            super(itemView);
-            mateName = (TextView)itemView.findViewById(R.id.request_name);
-            mateMajor = (TextView)itemView.findViewById(R.id.request_major);
-            matePhoto = (ImageView)itemView.findViewById(R.id.request_photo);
-            this.mateView = itemView;
-        }
-        public void bindCourse(final User c,final int position){
-            if(c.getId() != userId){
-                mateName.setText(c.getFirstname()+" "+c.getOthername());
-                mateMajor.setText(c.getMajor());
 
-                EndPoints.loadFirebasePic(c.getPhoto(),matePhoto,getApplicationContext());
-                mateView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FriendProfile friendProfile = new FriendProfile();
-                        Bundle arg = new Bundle();
-                        arg.putParcelable(EndPoints.PASSED_USER,searchList.get(position));
-                        friendProfile.setArguments(arg);
-                        friendProfile.setPrivacy(false,true);
-                        friendProfile.show(getSupportFragmentManager(), EndPoints.PASSED_USER);
-                    }
-                });
-            }else {
-                mateView.setVisibility(View.GONE);
-            }
-
-        }
-    }
-    public class CoursemateAdapter extends RecyclerView.Adapter<CoursemateHolder>{
-        List<User> courseList = new ArrayList<>();
-
-        public CoursemateAdapter(List<User> list){
-            this.courseList = list;
-        }
-        @Override
-        public CoursemateHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coursemate_single_view, parent, false);
-            return new CoursemateHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(CoursemateHolder holder, int position) {
-            holder.bindCourse(courseList.get(position),position);
-        }
-
-        @Override
-        public int getItemCount() {
-            return courseList.size();
-        }
-    }
-
-    public void apiSearchCoursemateAdd(int page,int type,String query){
+    public void apiSearchCoursemateAdd(int page, int type, String query) {
         showBar(true);
         final ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
-        Call<ServerResponse> searchCoursemate = apiInterface.searchCoursemateAdd(query,type,page);
+        Call<ServerResponse> searchCoursemate = apiInterface.searchCoursemateAdd(query, type, page);
         searchCoursemate.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 showBar(false);
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<User> list = response.body().getCoursemates();
                     populate(list);
-                   //Toast.mekText(AddCoursemateActivity.this, "search was successful", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(AddCoursemateActivity.this, "no result ohhh "+response.message(), Toast.LENGTH_SHORT).show();
+                    //Toast.mekText(AddCoursemateActivity.this, "search was successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AddCoursemateActivity.this, "no result ohhh " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -303,5 +241,66 @@ public class AddCoursemateActivity extends AppCompatActivity {
                 Toast.makeText(AddCoursemateActivity.this, "Network error,try again.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public class CoursemateHolder extends RecyclerView.ViewHolder {
+        TextView mateName, mateMajor;
+        ImageView matePhoto;
+        View mateView;
+
+        public CoursemateHolder(View itemView) {
+            super(itemView);
+            mateName = (TextView) itemView.findViewById(R.id.request_name);
+            mateMajor = (TextView) itemView.findViewById(R.id.request_major);
+            matePhoto = (ImageView) itemView.findViewById(R.id.request_photo);
+            this.mateView = itemView;
+        }
+
+        public void bindCourse(final User c, final int position) {
+            if (c.getId() != userId) {
+                mateName.setText(c.getFirstname() + " " + c.getOthername());
+                mateMajor.setText(c.getMajor());
+
+                EndPoints.loadFirebasePic(c.getPhoto(), matePhoto, getApplicationContext());
+                mateView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FriendProfile friendProfile = new FriendProfile();
+                        Bundle arg = new Bundle();
+                        arg.putParcelable(EndPoints.PASSED_USER, searchList.get(position));
+                        friendProfile.setArguments(arg);
+                        friendProfile.setPrivacy(false, true);
+                        friendProfile.show(getSupportFragmentManager(), EndPoints.PASSED_USER);
+                    }
+                });
+            } else {
+                mateView.setVisibility(View.GONE);
+            }
+
+        }
+    }
+
+    public class CoursemateAdapter extends RecyclerView.Adapter<CoursemateHolder> {
+        List<User> courseList = new ArrayList<>();
+
+        public CoursemateAdapter(List<User> list) {
+            this.courseList = list;
+        }
+
+        @Override
+        public CoursemateHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coursemate_single_view, parent, false);
+            return new CoursemateHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(CoursemateHolder holder, int position) {
+            holder.bindCourse(courseList.get(position), position);
+        }
+
+        @Override
+        public int getItemCount() {
+            return courseList.size();
+        }
     }
 }

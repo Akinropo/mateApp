@@ -16,16 +16,15 @@
         <item name="windowActionBar">false</item>
 
     </style>
-    <style name="AppTheme.ActionBar"
-        parent="Theme.AppCompat.Light.DarkActionBar">
+
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColorPrimary">?android:attr/textColorPrimaryInverse</item>
         <item name="android:textColorSecondary">?android:attr/textColorPrimaryInverse</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimaryInverse</item>
     </style>
 
-    <style name="AppTheme.ActionBar.Inverted"
-        parent="AppTheme.ActionBar">
+    <style name="AppTheme.ActionBar.Inverted" parent="AppTheme.ActionBar">
         <item name="android:background">@android:color/white</item>
         <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:textColorSecondary">@color/colorAccent</item>
@@ -40,7 +39,9 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:actionBarItemBackground">@color/colorPrimaryDark</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

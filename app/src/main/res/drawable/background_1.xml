@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bitmap xmlns:android="http://schemas.android.com/apk/res/android" android:src="@drawable/background_polar_1"
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:autoMirrored="true"
     android:gravity="fill"
-    android:tileMode="repeat"
-    android:autoMirrored="true">
+    android:src="@drawable/background_polar_1"
+    android:tileMode="repeat">
 
 </bitmap>

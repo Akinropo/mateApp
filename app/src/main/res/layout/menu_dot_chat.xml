@@ -9,10 +9,11 @@
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:background="@drawable/circle_notify"></LinearLayout>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_action_chat"
-        android:layout_margin="0dp" />
+        android:layout_margin="0dp"
+        android:src="@drawable/ic_action_chat" />
 
 </RelativeLayout>

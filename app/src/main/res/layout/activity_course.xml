@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.v7.widget.Toolbar
+            android:id="@+id/course_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:title="My courses"
-            android:titleTextColor="@android:color/white"
-            android:id="@+id/course_toolbar">
+            android:titleTextColor="@android:color/white">
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,21 +36,23 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ProgressBar
+                    android:id="@+id/add_course_progress"
                     style="?android:attr/progressBarStyleLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="invisible"
-                    android:progressBackgroundTint="@color/colorPrimary"
                     android:layout_centerInParent="true"
                     android:padding="10dp"
-                    android:id="@+id/add_course_progress"
-                    />
+                    android:progressBackgroundTint="@color/colorPrimary"
+                    android:visibility="invisible" />
+
                 <LinearLayout
+                    android:id="@+id/add_course_box"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/add_course_box">
+                    android:orientation="vertical">
+
                     <EditText
                         android:id="@+id/add_course_code"
                         android:layout_width="fill_parent"
@@ -56,14 +60,14 @@
                         android:layout_marginBottom="10dp"
                         android:background="@android:color/white"
                         android:hint="Course Code"
-                        android:maxLength="6"
-                        android:inputType="textCapCharacters"
-                        android:padding="10dp"
                         android:imeOptions="actionNext"
+                        android:inputType="textCapCharacters"
+                        android:maxLength="6"
+                        android:padding="10dp"
                         android:singleLine="true"
                         android:textColor="@color/input_login"
-                        android:textColorHint="@color/input_login_hint"
-                        />
+                        android:textColorHint="@color/input_login_hint" />
+
                     <EditText
                         android:id="@+id/add_course_unit"
                         android:layout_width="fill_parent"
@@ -71,30 +75,31 @@
                         android:layout_marginBottom="10dp"
                         android:background="@android:color/white"
                         android:hint="Course Unit"
-                        android:maxLength="1"
-                        android:inputType="number"
-                        android:padding="10dp"
                         android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:padding="10dp"
                         android:singleLine="true"
                         android:textColor="@color/input_login"
-                        android:textColorHint="@color/input_login_hint"
-                        />
+                        android:textColorHint="@color/input_login_hint" />
+
                     <Button
                         android:id="@+id/add_course_button"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="Add Course"
                         android:layout_marginTop="20dip"
                         android:background="@color/btn_login"
-                        android:textColor="@android:color/white"/>
+                        android:text="Add Course"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
             </RelativeLayout>
+
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/course_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/course_list"
-                android:scrollbars="vertical"
-                android:layout_marginTop="20dip">
+                android:layout_marginTop="20dip"
+                android:scrollbars="vertical">
 
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>

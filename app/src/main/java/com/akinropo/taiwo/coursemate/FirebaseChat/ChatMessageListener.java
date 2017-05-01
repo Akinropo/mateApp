@@ -6,12 +6,16 @@ package com.akinropo.taiwo.coursemate.FirebaseChat;
 public interface ChatMessageListener {
 
     public void onNewMessage(Message message);
+
     public void onChatLoaded(Chat chat);
+
     public void onErrorNewMessage(String error);
+
     public void onErrorLoaded(String error);
 
-    public interface ChatSelectionListener{
+    public interface ChatSelectionListener {
         public void onAddMember();
+
         public void onViewGroup();
     }
 }

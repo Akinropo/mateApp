@@ -37,7 +37,7 @@ public class EndPoints {
     public static final String DISCOVER_FRAGMENT = "discover_fragment";
     public static final String ME_FRAGMENT = "me_fragment";
     public static final String PASSED_USER = "passed_user";
-    public static final String PASSED_ID  ="passed_id";
+    public static final String PASSED_ID = "passed_id";
     public static final String PASSED_GROUP = "passed_group";
     public static final String PASSED_USER_CHATYPE = "chat_type";
     public static final String DISCOVER_FEATURE = "discover_feature";
@@ -62,8 +62,11 @@ public class EndPoints {
     public static final int TOPIC_FLAG_GROUP = 2;     //this is flag to denote in chatactivity that notification is a group chat.
     public static final int TOPIC_FLAG_FREECHAT = 3;   //this is flag to denote in chatactivity that users are freechating.
     public static final String NEW_MESSAGE_BROADCAST = "newMessage";
+    public static boolean isAcceptRequest = false; //key to check whether to refresh coursemate list.
+    public static List<GroupRes> groupIds = new ArrayList<>();
+    public static List<User> storedCm = new ArrayList<>();
 
-    public static AlertDialog buildDailog(Context context,String title,String message,boolean cancelable){
+    public static AlertDialog buildDailog(Context context, String title, String message, boolean cancelable) {
         AlertDialog dialog = new AlertDialog.Builder(context)
                 .setCancelable(cancelable)
                 .setCancelable(cancelable)
@@ -72,9 +75,7 @@ public class EndPoints {
                 .create();
         return dialog;
     }
-    public static boolean isAcceptRequest = false; //key to check whether to refresh coursemate list.
 
-    public static List<GroupRes> groupIds = new ArrayList<>();
     public static List<GroupRes> getGroupIds() {
         return groupIds;
     }
@@ -83,8 +84,6 @@ public class EndPoints {
         EndPoints.groupIds = groupIds;
     }
 
-
-
     public static boolean isAcceptRequest() {
         return isAcceptRequest;
     }
@@ -92,7 +91,6 @@ public class EndPoints {
     public static void setIsAcceptRequest(boolean isAcceptRequest) {
         EndPoints.isAcceptRequest = isAcceptRequest;
     }
-    public static List<User> storedCm = new ArrayList<>();
 
     public static List<User> getStoredCm() {
         return storedCm;
@@ -102,7 +100,7 @@ public class EndPoints {
         EndPoints.storedCm = storedCm;
     }
 
-    public static MaterialIntroView.Builder getBuilder (Activity activity){
+    public static MaterialIntroView.Builder getBuilder(Activity activity) {
         return new MaterialIntroView.Builder(activity)
                 .setMaskColor(R.color.colorAccent)
                 .enableFadeAnimation(true)
@@ -110,10 +108,11 @@ public class EndPoints {
                 .setTargetPadding(20)
                 .setInfoTextSize(20);
     }
-    public static void loadFirebasePic(String photo,ImageView imageView,Context context){
+
+    public static void loadFirebasePic(String photo, ImageView imageView, Context context) {
         FirebasePhotoStorage firebasePhotoStorage = new FirebasePhotoStorage();
         StorageReference firebaseProfile = firebasePhotoStorage.getProfilePhotoRef().child(photo);
-        if(firebaseProfile != null){
+        if (firebaseProfile != null) {
             Glide.with(context)
                     .using(new FirebaseImageLoader())
                     .load(firebaseProfile)

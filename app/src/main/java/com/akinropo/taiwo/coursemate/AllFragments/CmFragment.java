@@ -10,7 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.akinropo.taiwo.coursemate.PrivateClasses.SetOnMyBackPressed;
 import com.akinropo.taiwo.coursemate.R;
@@ -29,10 +28,6 @@ public class CmFragment extends Fragment {
     List<String> fragmentTitles = new ArrayList<>();
     SetOnMyBackPressed setOnMyBackPressed;
 
-    public void setSetOnMyBackPressed(SetOnMyBackPressed setOnMyBackPressed) {
-        this.setOnMyBackPressed = setOnMyBackPressed;
-    }
-
     public CmFragment() {
         // Required empty public constructor
         mfragments.add(new CoursemateFragment());
@@ -43,15 +38,18 @@ public class CmFragment extends Fragment {
         fragmentTitles.add(group);
     }
 
+    public void setSetOnMyBackPressed(SetOnMyBackPressed setOnMyBackPressed) {
+        this.setOnMyBackPressed = setOnMyBackPressed;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_cm, container, false);
-        tabLayout = (TabLayout)view.findViewById(R.id.cm_tablayout);
-        viewPager = (ViewPager)view.findViewById(R.id.cm_viewpager);
-        viewAdapter = new ViewAdapter(getChildFragmentManager(),mfragments,fragmentTitles);
+        View view = inflater.inflate(R.layout.fragment_cm, container, false);
+        tabLayout = (TabLayout) view.findViewById(R.id.cm_tablayout);
+        viewPager = (ViewPager) view.findViewById(R.id.cm_viewpager);
+        viewAdapter = new ViewAdapter(getChildFragmentManager(), mfragments, fragmentTitles);
         viewPager.setAdapter(viewAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabTextColors(getContext().getResources().getColor(R.color.primary_text),
@@ -61,10 +59,15 @@ public class CmFragment extends Fragment {
         return view;
     }
 
-    public class ViewAdapter extends FragmentPagerAdapter{
+    public void showTutorial() {
+        ((CoursemateFragment) mfragments.get(0)).showTutorial();
+    }
+
+    public class ViewAdapter extends FragmentPagerAdapter {
         List<Fragment> fragmentList = new ArrayList<>();
         List<String> stringList = new ArrayList<>();
-        public ViewAdapter(FragmentManager fm,List<Fragment> fragments,List<String> list) {
+
+        public ViewAdapter(FragmentManager fm, List<Fragment> fragments, List<String> list) {
             super(fm);
             this.fragmentList = fragments;
             this.stringList = list;
@@ -84,9 +87,6 @@ public class CmFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             return stringList.get(position);
         }
-    }
-    public void showTutorial(){
-        ((CoursemateFragment)mfragments.get(0)).showTutorial();
     }
 
 }

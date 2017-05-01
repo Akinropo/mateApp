@@ -1,23 +1,24 @@
 <tabs>
-    <tab id="@+id/tab_post"
-        title="Post"
-        icon="@drawable/ic_post" />
-    <tab id="@+id/tab_cm"
-        title="CM"
+    <tab
+        icon="@drawable/ic_post"
+        id="@+id/tab_post"
+        title="Post" />
+    <tab
+        barColorWhenSelected="#5D4037"
         icon="@drawable/ic_coursemate"
-        barColorWhenSelected="#5D4037"
-        />
-    <tab id="@+id/tab1_chat"
-        title="Chat"
+        id="@+id/tab_cm"
+        title="CM" />
+    <tab
         icon="@drawable/ic_chat"
-        />
-    <tab id="@+id/tab_discover"
-        title="Discover"
+        id="@+id/tab1_chat"
+        title="Chat" />
+    <tab
         icon="@drawable/ic_discover"
-        />
-    <tab id="@+id/tab_me"
-        title="Me"
-        icon="@drawable/ic_user_account"
+        id="@+id/tab_discover"
+        title="Discover" />
+    <tab
         barColorWhenSelected="#5D4037"
-        />
+        icon="@drawable/ic_user_account"
+        id="@+id/tab_me"
+        title="Me" />
 </tabs>

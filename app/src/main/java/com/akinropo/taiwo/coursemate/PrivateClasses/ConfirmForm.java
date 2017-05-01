@@ -5,17 +5,14 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.akinropo.taiwo.coursemate.AllActivities.LoginActivity;
 import com.akinropo.taiwo.coursemate.AllFragments.SignUpOne;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,46 +22,46 @@ public class ConfirmForm {
 
     final List<EditText> editTextList;
     final Button submitBut;
-    String result = "this is the initial value";
     final Drawable butBg;
+    String result = "this is the initial value";
     Handler mHanldler;
     List<String> editTextStrings;
 
-    public ConfirmForm(List<EditText> editTextLists, Button submitButs, Drawable pBg){
-       this.editTextList = editTextLists;
+    public ConfirmForm(List<EditText> editTextLists, Button submitButs, Drawable pBg) {
+        this.editTextList = editTextLists;
         this.submitBut = submitButs;
         this.butBg = pBg;
         mHanldler = new Handler();
     }
 
-    public void setUp(final Context context){
+    public void setUp(final Context context) {
 
         Runnable myRunnable = new Runnable() {
             @Override
             public void run() {
-                EditText lastEdit = editTextList.get(editTextList.size()-1);
-                if(lastEdit != null){
+                EditText lastEdit = editTextList.get(editTextList.size() - 1);
+                if (lastEdit != null) {
                     lastEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
-                            if(!hasFocus || hasFocus){
+                            if (!hasFocus || hasFocus) {
                                 int confirm = 0;
-                                for(int i = 0;i < editTextList.size()-1;++i){
+                                for (int i = 0; i < editTextList.size() - 1; ++i) {
                                     String text = editTextList.get(i).getText().toString();
-                                    if( text.equals("")){
+                                    if (text.equals("")) {
                                         confirm++;
                                     }
                                 }
-                                if( confirm == 0){
+                                if (confirm == 0) {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                                         submitBut.setBackground(butBg);
-                                    }else {
+                                    } else {
                                         submitBut.setBackgroundDrawable(butBg);
                                     }
-                                    if(editTextList.size() == 2){
+                                    if (editTextList.size() == 2) {
                                         LoginActivity.isFormFill = true;
                                     }
-                                    if(editTextList.size() == 6){
+                                    if (editTextList.size() == 6) {
                                         SignUpOne.isFormFill = true;
                                     }
 
@@ -76,18 +73,19 @@ public class ConfirmForm {
 
             }
         };
-        if(myRunnable != null){
+        if (myRunnable != null) {
             mHanldler.post(myRunnable);
         }
     }
 
-    public void setUpEditText(List<String> editTextSign){
+    public void setUpEditText(List<String> editTextSign) {
         this.editTextStrings = editTextSign;
-        for(int i = 0; i < editTextStrings.size();++i){
-            bindError(this.editTextList.get(i),editTextStrings.get(i));
+        for (int i = 0; i < editTextStrings.size(); ++i) {
+            bindError(this.editTextList.get(i), editTextStrings.get(i));
         }
     }
-    public void bindError(final EditText editText, final String error){
+
+    public void bindError(final EditText editText, final String error) {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -101,9 +99,9 @@ public class ConfirmForm {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().length() > 0){
+                if (s.toString().length() > 0) {
 
-                }else {
+                } else {
                     editText.setError(error);
                 }
             }
@@ -111,29 +109,30 @@ public class ConfirmForm {
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(editText.getText().toString().length() == 0){
+                if (editText.getText().toString().length() == 0) {
                     editText.setError(error);
                 }
             }
         });
     }
-    public boolean checkError(){
+
+    public boolean checkError() {
         int confirm = 0;
-        for(int i = 0;i < editTextList.size()-1;++i){
+        for (int i = 0; i < editTextList.size() - 1; ++i) {
             String text = editTextList.get(i).getText().toString();
-            if( text.equals("")){
+            if (text.equals("")) {
                 confirm++;
             }
         }
-        if(confirm == 0) return false;
+        if (confirm == 0) return false;
         else return true;
     }
 
-    public boolean checkValidEmail(String email){
-        if(email.contains("@") && email.contains(".")){
+    public boolean checkValidEmail(String email) {
+        if (email.contains("@") && email.contains(".")) {
             //the email may be valid
             return true;
-        }else {
+        } else {
             return false;
         }
     }

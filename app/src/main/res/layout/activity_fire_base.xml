@@ -16,15 +16,15 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:text="This is Sample"
         android:gravity="center_horizontal"
+        android:text="This is Sample"
         android:textColor="@color/colorPrimary"
         android:textSize="26dp" />
 
     <TextView
         android:id="@+id/txt_reg_id"
         android:layout_width="wrap_content"
-        android:text="This is Sample"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:text="This is Sample" />
 </RelativeLayout>

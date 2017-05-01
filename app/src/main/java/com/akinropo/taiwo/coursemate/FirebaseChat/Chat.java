@@ -18,7 +18,7 @@ public class Chat {
         return messages.get(position);
     }
 
-    public void addMessage(Message message){
+    public void addMessage(Message message) {
         messages.add(message);
     }
 

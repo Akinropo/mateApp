@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:id="@+id/suggest_error_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="10dp">
+
     <ImageView
+        android:id="@+id/suggest_error_view_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/loading_go_round"
         android:layout_gravity="center"
-        android:id="@+id/suggest_error_view_image"/>
+        android:src="@drawable/loading_go_round" />
+
     <TextView
+        android:id="@+id/suggest_error_view_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Loading..."
         android:gravity="center"
-        android:id="@+id/suggest_error_view_word"
-        android:textSize="19dp"/>
+        android:text="Loading..."
+        android:textSize="19dp" />
 </LinearLayout>

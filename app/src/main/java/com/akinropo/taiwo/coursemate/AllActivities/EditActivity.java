@@ -3,9 +3,9 @@ package com.akinropo.taiwo.coursemate.AllActivities;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +44,8 @@ public class EditActivity extends AppCompatActivity {
             currentUser = i.getParcelableExtra(EndPoints.PASSED_USER);
             //getSupportActionBar().setTitle(currentUser.getFirstname() + " " + currentUser.getOthername());
         }
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        toolbar.setTitle(currentUser.getFirstname() + " "+currentUser.getOthername());
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(currentUser.getFirstname() + " " + currentUser.getOthername());
         setSupportActionBar(toolbar);
         updatePassword = (TextView) findViewById(R.id.update_password);
         updateFaculty = (EditText) findViewById(R.id.update_faculty);
@@ -92,7 +92,7 @@ public class EditActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                     p.setMessage("Updated");
-                    Intent i = new Intent(EditActivity.this,MainActivity.class);
+                    Intent i = new Intent(EditActivity.this, MainActivity.class);
                     startActivity(i);
                 }
 
@@ -114,12 +114,13 @@ public class EditActivity extends AppCompatActivity {
         }
 
     }
-    public void preparePasswordDialog(){
+
+    public void preparePasswordDialog() {
         final AlertDialog.Builder passDialog = new AlertDialog.Builder(EditActivity.this);
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.update_password_dialog, null);
-        final EditText oldPassword = (EditText)view.findViewById(R.id.update_old_password);
-        final EditText newPassword = (EditText)view.findViewById(R.id.update_new_password);
+        final EditText oldPassword = (EditText) view.findViewById(R.id.update_old_password);
+        final EditText newPassword = (EditText) view.findViewById(R.id.update_new_password);
         passDialog.setView(view);
         passDialog.setTitle("Change Password");
         passDialog.setPositiveButton("Change Password", new DialogInterface.OnClickListener() {
@@ -142,31 +143,32 @@ public class EditActivity extends AppCompatActivity {
                 String old = oldPassword.getText().toString();
                 String newp = newPassword.getText().toString();
                 int id = currentUser.getId();
-                if(!old.equals("")&&!newp.equals("")){
+                if (!old.equals("") && !newp.equals("")) {
                     dialog.dismiss();
-                    apiUpdatePassword(id,old,newp);
-                }else {
+                    apiUpdatePassword(id, old, newp);
+                } else {
                     Toast.makeText(EditActivity.this, "Fill Completely", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-    public void apiUpdatePassword(int id,String old_password,String new_password){
+
+    public void apiUpdatePassword(int id, String old_password, String new_password) {
         showProgressDialog(true);
         ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
-        Call<ServerResponse> updatePassword = apiInterface.updatePassword(id,new_password,old_password);
+        Call<ServerResponse> updatePassword = apiInterface.updatePassword(id, new_password, old_password);
         updatePassword.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 showProgressDialog(false);
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     AlertDialog taiwo = new AlertDialog.Builder(EditActivity.this)
                             .setCancelable(true)
                             .setMessage("password updated successfully.")
                             .setTitle("Change Password")
                             .create();
                     taiwo.show();
-                }else {
+                } else {
                     AlertDialog taiwo = new AlertDialog.Builder(EditActivity.this)
                             .setCancelable(true)
                             .setMessage("Can not update password check your old password.")

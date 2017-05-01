@@ -1,10 +1,8 @@
 package com.akinropo.taiwo.coursemate;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import com.akinropo.taiwo.coursemate.PrivateClasses.MyPreferenceManager;
-import com.github.javiersantos.appupdater.AppUpdater;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,12 +22,11 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         manager = new MyPreferenceManager(getApplicationContext());
-        if(manager.getId() > 0){
+        if (manager.getId() > 0) {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-            FirebaseMessaging.getInstance().subscribeToTopic("user__"+manager.getId());
+            FirebaseMessaging.getInstance().subscribeToTopic("user__" + manager.getId());
             setOnlineStatus();
         }
-
 
 
     }
@@ -38,22 +35,23 @@ public class App extends Application {
     public void onTerminate() {
         super.onTerminate();
         manager = new MyPreferenceManager(getApplicationContext());
-        if(manager.getId() > 0){
+        if (manager.getId() > 0) {
             //FirebaseMessaging.getInstance().unsubscribeFromTopic("user__"+manager.getId());
         }
     }
-    public void setOnlineStatus(){
+
+    public void setOnlineStatus() {
         MyPreferenceManager manager = new MyPreferenceManager(getApplicationContext());
         final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference connectionRef = firebaseDatabase.getReference("/users/" + manager.getId() + "/connections");
 
-        final DatabaseReference lastOnlineRef = firebaseDatabase.getReference("/users/"+manager.getId()+"/lastOnline");
+        final DatabaseReference lastOnlineRef = firebaseDatabase.getReference("/users/" + manager.getId() + "/lastOnline");
         final DatabaseReference connectedRef = firebaseDatabase.getReference(".info/connected");
         connectedRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean connected = dataSnapshot.getValue(Boolean.class);
-                if(connected){
+                if (connected) {
                     //add this device to connection list
                     DatabaseReference con = connectionRef.push();
                     con.setValue(Boolean.TRUE);
@@ -65,7 +63,7 @@ public class App extends Application {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-               // Toast.makeText(getApplicationContext(), "Error at setOnlineStatus()", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getApplicationContext(), "Error at setOnlineStatus()", Toast.LENGTH_SHORT).show();
             }
         });
     }

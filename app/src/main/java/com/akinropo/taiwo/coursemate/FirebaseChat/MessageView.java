@@ -61,17 +61,17 @@ public class MessageView extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         View view = View.inflate(getContext(), layoutResId, this);
-        this.picture = (ImageView)view.findViewById(R.id.message_author_image);
-        this.body = (EmojiconTextView)view.findViewById(R.id.message_body);
-        this.time = (TextView)view.findViewById(R.id.message_time);
-        this.name = (TextView)view.findViewById(R.id.message_author_name);
+        this.picture = (ImageView) view.findViewById(R.id.message_author_image);
+        this.body = (EmojiconTextView) view.findViewById(R.id.message_body);
+        this.time = (TextView) view.findViewById(R.id.message_time);
+        this.name = (TextView) view.findViewById(R.id.message_author_name);
     }
 
     public void display(Message message) {
         Context context = getContext();
-        if(message.getSenderPhoto() != null){
-            Uri uri = Uri.parse(EndPoints.PHOTO_BASE_URL+message.getSenderPhoto());
-            if(uri != null){
+        if (message.getSenderPhoto() != null) {
+            Uri uri = Uri.parse(EndPoints.PHOTO_BASE_URL + message.getSenderPhoto());
+            if (uri != null) {
                 Glide.with(context)
                         .load(uri)
                         .error(R.drawable.ic_user_account)
@@ -79,7 +79,7 @@ public class MessageView extends LinearLayout {
                         .into(picture);
             }
 
-        }else {
+        } else {
             Glide.with(context)
                     .load(R.drawable.anonymous)
                     .error(R.drawable.ic_user_account)
@@ -89,7 +89,7 @@ public class MessageView extends LinearLayout {
 
         body.setText(message.getBody());
         time.setText(formattedTimeFrom(message.getTimestamp()));
-        if(message.getSenderName() != null){
+        if (message.getSenderName() != null) {
             name.setText(message.getSenderName());
         }
     }

@@ -5,10 +5,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
+    //show if the progressbar is added currently
+    public boolean progressAdded = false;
+    //Declare the Recyler adapter for adding the progressbar
+    RecyclerView.Adapter adapter;
+    //Declare the array list
+    List theList;
+    RecyclerView.LayoutManager mLayoutManager;
     // The minimum amount of items to have below your current scroll position
     // before loading more.
     private int visibleThreshold = 5;
@@ -20,20 +26,12 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
     private boolean loading = true;
     // Sets the starting page index
     private int startingPageIndex = 0;
-    //Declare the Recyler adapter for adding the progressbar
-    RecyclerView.Adapter adapter;
-    //Declare the array list
-    List theList;
-    //show if the progressbar is added currently
-    public boolean progressAdded = false;
-
-    RecyclerView.LayoutManager mLayoutManager;
 
     public EndlessRecyclerViewScrollListener(LinearLayoutManager layoutManager) {
         this.mLayoutManager = layoutManager;
     }
 
-    public EndlessRecyclerViewScrollListener(LinearLayoutManager mLayoutManager,RecyclerView.Adapter re,List list){
+    public EndlessRecyclerViewScrollListener(LinearLayoutManager mLayoutManager, RecyclerView.Adapter re, List list) {
         this.mLayoutManager = mLayoutManager;
         this.adapter = re;
         this.theList = list;
@@ -54,8 +52,7 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
         for (int i = 0; i < lastVisibleItemPositions.length; i++) {
             if (i == 0) {
                 maxSize = lastVisibleItemPositions[i];
-            }
-            else if (lastVisibleItemPositions[i] > maxSize) {
+            } else if (lastVisibleItemPositions[i] > maxSize) {
                 maxSize = lastVisibleItemPositions[i];
             }
         }
@@ -78,7 +75,7 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
             lastVisibleItemPosition = ((GridLayoutManager) mLayoutManager).findLastVisibleItemPosition();
         } else if (mLayoutManager instanceof LinearLayoutManager) {
             lastVisibleItemPosition = ((LinearLayoutManager) mLayoutManager).findLastVisibleItemPosition();
-        } 
+        }
 
         // If the total item count is zero and the previous isn't, assume the
         // list is invalidated and should be reset back to initial state
@@ -112,23 +109,24 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
 
         }
     }
-    
+
     // Call this method whenever performing new searches
     public void resetState() {
         this.currentPage = this.startingPageIndex;
         this.previousTotalItemCount = 0;
         this.loading = true;
     }
+
     //funtion to add or remove the progress bar
-    public void addProgressBar(boolean add){
-        if(theList != null && adapter != null){
-            if(add && !progressAdded){
+    public void addProgressBar(boolean add) {
+        if (theList != null && adapter != null) {
+            if (add && !progressAdded) {
                 theList.add(null);
                 adapter.notifyItemInserted(theList.size());
                 progressAdded = true;
-            }else if(!add) {
-                if(theList.size() > 0){
-                    theList.remove(theList.size() -1);
+            } else if (!add) {
+                if (theList.size() > 0) {
+                    theList.remove(theList.size() - 1);
                     progressAdded = false;
                     adapter.notifyItemRemoved(theList.size());
                 }

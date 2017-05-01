@@ -6,26 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by TAIWO on 1/11/2017.
  */
-public class Course implements Parcelable{
-    int id,courseUnit;
-    String courseCode;
-    String courseTitle;
-
-    public Course(int id, int courseUnit, String courseCode) {
-        this.id = id;
-        this.courseUnit = courseUnit;
-        this.courseCode = courseCode;
-    }
-
-
-
-    protected Course(Parcel in) {
-        id = in.readInt();
-        courseUnit = in.readInt();
-        courseCode = in.readString();
-        courseTitle = in.readString();
-    }
-
+public class Course implements Parcelable {
     public static final Creator<Course> CREATOR = new Creator<Course>() {
         @Override
         public Course createFromParcel(Parcel in) {
@@ -37,6 +18,23 @@ public class Course implements Parcelable{
             return new Course[size];
         }
     };
+    int id, courseUnit;
+    String courseCode;
+    String courseTitle;
+
+
+    public Course(int id, int courseUnit, String courseCode) {
+        this.id = id;
+        this.courseUnit = courseUnit;
+        this.courseCode = courseCode;
+    }
+
+    protected Course(Parcel in) {
+        id = in.readInt();
+        courseUnit = in.readInt();
+        courseCode = in.readString();
+        courseTitle = in.readString();
+    }
 
     public String getCourseTitle() {
         return courseTitle;

@@ -1,7 +1,6 @@
 package com.akinropo.taiwo.coursemate.FirebaseChat;
 
 
-import com.akinropo.taiwo.coursemate.PrivateClasses.User;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.ServerValue;
@@ -13,21 +12,31 @@ public class Message {
     public String senderPhoto;
     public String body;
     public String senderMajor;
-    public HashMap<String,Object> timestampCreated ;
+    public HashMap<String, Object> timestampCreated;
     public String photoUrl;
     public int receiverId;
     public int senderId;
+    public int groupOwner;
+    public int flag;
+    public String senderName; //this is to be use in groupchat message
 
+    @SuppressWarnings("unused") //Used by Firebase
+    public Message() {
+        timestampCreated = new HashMap<>();
+        timestampCreated.put("timestamp", ServerValue.TIMESTAMP);
+    }
 
     @Exclude
     public long getTimestamp() {
-        if(timestampCreated.get("timestamp") != null) return (long)timestampCreated.get("timestamp");
+        if (timestampCreated.get("timestamp") != null)
+            return (long) timestampCreated.get("timestamp");
         else return 6554535;
     }
 
     public HashMap<String, Object> getTimestampCreated() {
         return timestampCreated;
     }
+
     public String getSenderMajor() {
         return senderMajor;
     }
@@ -44,8 +53,6 @@ public class Message {
         this.groupOwner = groupOwner;
     }
 
-    public int groupOwner;
-
     public int getFlag() {
         return flag;
     }
@@ -53,9 +60,6 @@ public class Message {
     public void setFlag(int flag) {
         this.flag = flag;
     }
-
-    public int flag;
-    public String senderName; //this is to be use in groupchat message
 
     public String getSenderName() {
         return senderName;
@@ -71,11 +75,6 @@ public class Message {
 
     public void setSenderPhoto(String senderPhoto) {
         this.senderPhoto = senderPhoto;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-
     }
 
     public int getSenderId() {
@@ -104,16 +103,13 @@ public class Message {
         this.photoUrl = photoUrl;
     }
 
-
-    @SuppressWarnings("unused") //Used by Firebase
-    public Message() {
-        timestampCreated = new HashMap<>();
-        timestampCreated.put("timestamp",ServerValue.TIMESTAMP);
-    }
-
-
     public String getBody() {
         return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+
     }
 
 }

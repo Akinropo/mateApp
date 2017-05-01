@@ -1,40 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-        android:title="@string/prefs_notifications_category_1">
+    <PreferenceCategory android:title="@string/prefs_notifications_category_1">
         <CheckBoxPreference
-            android:title="Notification sound"
+            android:defaultValue="true"
+            android:key="notification_playSound"
             android:summary="@string/prefs_notifications_nSoundStr"
-            android:defaultValue="true"
-            android:key="notification_playSound"/>
+            android:title="Notification sound" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/prefs_notifications_category_2">
+    <PreferenceCategory android:title="@string/prefs_notifications_category_2">
         <CheckBoxPreference
-            android:title="Show notification"
+            android:defaultValue="true"
+            android:key="n_showMessageNotification"
             android:summary="@string/prefs_notifications_sNotificationStr"
-            android:defaultValue="true"
-            android:key="n_showMessageNotification"/>
+            android:title="Show notification" />
         <CheckBoxPreference
-            android:title="Vibrate"
-            android:summary="@string/prefs_notifications_vibrateStr"
             android:defaultValue="true"
-            android:key="n_vibrateMessage"/>
+            android:key="n_vibrateMessage"
+            android:summary="@string/prefs_notifications_vibrateStr"
+            android:title="Vibrate" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/prefs_notifications_category_3">
+    <PreferenceCategory android:title="@string/prefs_notifications_category_3">
         <CheckBoxPreference
-            android:title="Show group notification"
-            android:summary="@string/prefs_notifications_gNotificationStr"
             android:defaultValue="true"
-            android:key="n_showGroupNotification"/>
+            android:key="n_showGroupNotification"
+            android:summary="@string/prefs_notifications_gNotificationStr"
+            android:title="Show group notification" />
 
         <CheckBoxPreference
-            android:title="Vibrate"
-            android:summary="@string/prefs_notifications_gVibrateStr"
             android:defaultValue="true"
-            android:key="n_vibrateGroup"/>
+            android:key="n_vibrateGroup"
+            android:summary="@string/prefs_notifications_gVibrateStr"
+            android:title="Vibrate" />
     </PreferenceCategory>
 </PreferenceScreen>
