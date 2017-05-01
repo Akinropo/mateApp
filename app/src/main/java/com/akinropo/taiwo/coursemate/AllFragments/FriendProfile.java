@@ -2,13 +2,10 @@ package com.akinropo.taiwo.coursemate.AllFragments;
 
 
 import android.app.Dialog;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,10 +25,10 @@ import android.widget.Toast;
 import com.akinropo.taiwo.coursemate.ApiClasses.ApiInterface;
 import com.akinropo.taiwo.coursemate.ApiClasses.ApiRetrofit;
 import com.akinropo.taiwo.coursemate.ApiClasses.EndPoints;
+import com.akinropo.taiwo.coursemate.ApiClasses.ServerResponse;
 import com.akinropo.taiwo.coursemate.PrivateClasses.CircleTransform;
 import com.akinropo.taiwo.coursemate.PrivateClasses.Course;
 import com.akinropo.taiwo.coursemate.PrivateClasses.MyPreferenceManager;
-import com.akinropo.taiwo.coursemate.ApiClasses.ServerResponse;
 import com.akinropo.taiwo.coursemate.PrivateClasses.User;
 import com.akinropo.taiwo.coursemate.R;
 import com.akinropo.taiwo.coursemate.StorageClasses.FirebasePhotoStorage;
@@ -56,12 +53,12 @@ public class FriendProfile extends DialogFragment {
     ImageView meImage;
     User friendData;
     CardView personalContent;
-    TextView meMajor,meFaculty,meYear,meEmail,mePhone,meHighschool,meSex,noCourseYet;
+    TextView meMajor, meFaculty, meYear, meEmail, mePhone, meHighschool, meSex, noCourseYet;
     RecyclerView meRecycler;
     ProgressBar meCourseProgress;
     CourseAdapter courseAdapter;
     List<Course> courseList = new ArrayList<>();
-    Button butPending,butAlready,butRequest;
+    Button butPending, butAlready, butRequest;
     CardView butBox;
     boolean sendingRequest = false;
     boolean requestSent = false;
@@ -79,10 +76,10 @@ public class FriendProfile extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_friend_profile, container, false);
-        progressBar = (ProgressBar)view.findViewById(R.id.friend_loading);
-        personalContent = (CardView)view.findViewById(R.id.me_profile_personal);
-        toolbar = (Toolbar)view.findViewById(R.id.me_profile_toolbar);
+        View view = inflater.inflate(R.layout.fragment_friend_profile, container, false);
+        progressBar = (ProgressBar) view.findViewById(R.id.friend_loading);
+        personalContent = (CardView) view.findViewById(R.id.me_profile_personal);
+        toolbar = (Toolbar) view.findViewById(R.id.me_profile_toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_action_cancel_white);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,32 +87,32 @@ public class FriendProfile extends DialogFragment {
                 FriendProfile.this.dismiss();
             }
         });
-        noCourseYet = (TextView)view.findViewById(R.id.friend_no_course_yet);
-        meImage = (ImageView)view.findViewById(R.id.me_profile_pic);
-        meMajor = (TextView)view.findViewById(R.id.me_profile_department);
+        noCourseYet = (TextView) view.findViewById(R.id.friend_no_course_yet);
+        meImage = (ImageView) view.findViewById(R.id.me_profile_pic);
+        meMajor = (TextView) view.findViewById(R.id.me_profile_department);
         meMajor.setTypeface(EasyFonts.robotoMedium(getContext()));
-        meFaculty = (TextView)view.findViewById(R.id.me_profile_faculty);
-        meYear = (TextView)view.findViewById(R.id.me_profile_year);
-        meEmail = (TextView)view.findViewById(R.id.me_profile_email);
-        mePhone = (TextView)view.findViewById(R.id.me_profile_phone);
-        meHighschool = (TextView)view.findViewById(R.id.me_profile_highschool);
-        butAlready = (Button)view.findViewById(R.id.friend_profile_already);
-        butPending = (Button)view.findViewById(R.id.friend_profile_pending);
-        butRequest = (Button)view.findViewById(R.id.friend_profile_request);
-        butBox = (CardView)view.findViewById(R.id.friend_profile_butbox);
-        meSex = (TextView)view.findViewById(R.id.me_profile_sex);
-        meRecycler = (RecyclerView)view.findViewById(R.id.me_profile_courselist);
-        meCourseProgress = (ProgressBar)view.findViewById(R.id.me_profile_courselist_progressbar);
+        meFaculty = (TextView) view.findViewById(R.id.me_profile_faculty);
+        meYear = (TextView) view.findViewById(R.id.me_profile_year);
+        meEmail = (TextView) view.findViewById(R.id.me_profile_email);
+        mePhone = (TextView) view.findViewById(R.id.me_profile_phone);
+        meHighschool = (TextView) view.findViewById(R.id.me_profile_highschool);
+        butAlready = (Button) view.findViewById(R.id.friend_profile_already);
+        butPending = (Button) view.findViewById(R.id.friend_profile_pending);
+        butRequest = (Button) view.findViewById(R.id.friend_profile_request);
+        butBox = (CardView) view.findViewById(R.id.friend_profile_butbox);
+        meSex = (TextView) view.findViewById(R.id.me_profile_sex);
+        meRecycler = (RecyclerView) view.findViewById(R.id.me_profile_courselist);
+        meCourseProgress = (ProgressBar) view.findViewById(R.id.me_profile_courselist_progressbar);
         meRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         courseAdapter = new CourseAdapter(courseList);
         meRecycler.setItemAnimator(new DefaultItemAnimator());
         meRecycler.setAdapter(courseAdapter);
         meRecycler.setVisibility(View.INVISIBLE);
         meCourseProgress.setVisibility(View.VISIBLE);
-        if(getArguments().getBoolean("reLoad",false)){
+        if (getArguments().getBoolean("reLoad", false)) {
             int id = getArguments().getInt(EndPoints.PASSED_USER);
             fetchProfile(id);
-        }else {
+        } else {
             friendData = getArguments().getParcelable(EndPoints.PASSED_USER);
             setUpUser();
         }
@@ -126,7 +123,7 @@ public class FriendProfile extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog =  super.onCreateDialog(savedInstanceState);
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return dialog;
     }
@@ -142,19 +139,20 @@ public class FriendProfile extends DialogFragment {
 
         super.onResume();
     }
-    public void setUpUser(){
+
+    public void setUpUser() {
         populateProfile(friendData);
         fetchCourse(friendData.getId());
-        if(showRequestStatus){
+        if (showRequestStatus) {
             apiGetCmStatus(friendData.getId());
         }
     }
 
-    public void populateProfile(User user){
+    public void populateProfile(User user) {
 
         FirebasePhotoStorage firebasePhotoStorage = new FirebasePhotoStorage();
         StorageReference firebaseProfile = firebasePhotoStorage.getProfilePhotoRef().child(user.getPhoto());
-        if(firebaseProfile != null){
+        if (firebaseProfile != null) {
             Glide.with(getContext())
                     .using(new FirebaseImageLoader())
                     .load(firebaseProfile)
@@ -175,82 +173,49 @@ public class FriendProfile extends DialogFragment {
         meHighschool.setText(user.getHighschool());
         mePhone.setText(user.getPhone());
         meYear.setText(user.getYear());
-        if(!showPersonal){
+        if (!showPersonal) {
             personalContent.setVisibility(View.GONE);
         }
 
     }
-    public void populateCourse(List<Course> cList){
+
+    public void populateCourse(List<Course> cList) {
         courseList.addAll(cList);
         courseAdapter.notifyDataSetChanged();
         meCourseProgress.setVisibility(View.GONE);
         meRecycler.setVisibility(View.VISIBLE);
-        if(courseList.size() == 0){
+        if (courseList.size() == 0) {
             noCourseYet.setVisibility(View.VISIBLE);
         }
     }
-    public class CourseHolder extends RecyclerView.ViewHolder{
-        TextView courseCode,courseUnit;
-        public CourseHolder(View itemView) {
-            super(itemView);
-            courseCode = (TextView)itemView.findViewById(R.id.course_code);
-            courseUnit = (TextView)itemView.findViewById(R.id.course_unit);
 
-        }
-        public void bindCourse(Course c){
-            courseCode.setText(c.getCourseCode());
-            courseUnit.setText("unit: "+c.getCourseUnit());
-        }
-    }
-    public class CourseAdapter extends RecyclerView.Adapter<CourseHolder>{
-        List<Course> courseList;
+    public void fetchCourse(int id) {
 
-        public CourseAdapter(List<Course> list){
-            this.courseList = list;
-        }
-        @Override
-        public CourseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.course_single_view,parent,false);
-            return new CourseHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(CourseHolder holder, int position) {
-            holder.bindCourse(courseList.get(position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return courseList.size();
-        }
-    }
-
-    public void fetchCourse(int id){
-
-            ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
-            Call<ServerResponse> getCourses = apiInterface.getCourses(id);
-            getCourses.enqueue(new Callback<ServerResponse>() {
-                @Override
-                public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                    if (response.isSuccessful()) {
-                        List<Course> meCourseList = response.body().getCourseList();
-                        populateCourse(meCourseList);
-                    } else {
-                        //Toast.makeText(getContext(), "no course registered yet.", Toast.LENGTH_SHORT).show();
-                    }
+        ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
+        Call<ServerResponse> getCourses = apiInterface.getCourses(id);
+        getCourses.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                if (response.isSuccessful()) {
+                    List<Course> meCourseList = response.body().getCourseList();
+                    populateCourse(meCourseList);
+                } else {
+                    //Toast.makeText(getContext(), "no course registered yet.", Toast.LENGTH_SHORT).show();
                 }
+            }
 
-                @Override
-                public void onFailure(Call<ServerResponse> call, Throwable t) {
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
 
-                }
-            });
+            }
+        });
     }
-    public void apiGetCmStatus(int friend){
+
+    public void apiGetCmStatus(int friend) {
         MyPreferenceManager manager = new MyPreferenceManager(getContext());
         int use = manager.getId();
         ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
-       // Toast.makeText(getContext(),"values user:"+use+" friend:"+friend,Toast.LENGTH_LONG).show();
+        // Toast.makeText(getContext(),"values user:"+use+" friend:"+friend,Toast.LENGTH_LONG).show();
         Call<ServerResponse> getStatus = apiInterface.getCmStatus(use, friend);
         getStatus.enqueue(new Callback<ServerResponse>() {
             @Override
@@ -266,13 +231,14 @@ public class FriendProfile extends DialogFragment {
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-               // Toast.makeText(getContext(), "Check your internet connection.", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getContext(), "Check your internet connection.", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    public void cmButButton(int stat){
+
+    public void cmButButton(int stat) {
         //this function set the visibility of the right button for user friend status
-        switch (stat){
+        switch (stat) {
             case 0:
                 butRequest.setVisibility(View.VISIBLE);
                 butRequest.setOnClickListener(new View.OnClickListener() {
@@ -291,34 +257,36 @@ public class FriendProfile extends DialogFragment {
         }
         butBox.setVisibility(View.VISIBLE);
     }
-    public void manageSendRequest(){
+
+    public void manageSendRequest() {
         //this function switch between sending request and undoing the sent request.
-        if(!sendingRequest){
-            if(!requestSent){
+        if (!sendingRequest) {
+            if (!requestSent) {
                 apiSendCmRequest(friendData.getId());
                 butRequest.setText("Sending...");
                 butRequest.setAlpha(0.5f);
-            }else {
+            } else {
                 apiDeleteCmRequest(friendData.getId());
                 butRequest.setText("Deleting...");
                 butRequest.setAlpha(0.5f);
             }
         }
     }
-    public void apiSendCmRequest(final int friend){
+
+    public void apiSendCmRequest(final int friend) {
         sendingRequest = true;
         MyPreferenceManager manager = new MyPreferenceManager(getContext());
         int user = manager.getId();
         ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
-        final Call<ServerResponse> sendRequest = apiInterface.sendCmRequest(user,friend);
+        final Call<ServerResponse> sendRequest = apiInterface.sendCmRequest(user, friend);
         sendRequest.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 sendingRequest = false;
                 butRequest.setAlpha(1f);
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     requestSent = true;
-                   // Toast.makeText(getContext(), "request sent.", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(), "request sent.", Toast.LENGTH_SHORT).show();
                     butRequest.setText("Request Sent (Undo)");
                 }
             }
@@ -331,7 +299,8 @@ public class FriendProfile extends DialogFragment {
             }
         });
     }
-    public void apiDeleteCmRequest(int friend){
+
+    public void apiDeleteCmRequest(int friend) {
         sendingRequest = true;
         MyPreferenceManager manager = new MyPreferenceManager(getContext());
         int user = manager.getId();
@@ -342,9 +311,9 @@ public class FriendProfile extends DialogFragment {
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 sendingRequest = false;
                 butRequest.setAlpha(1f);
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     requestSent = true;
-                   // Toast.makeText(getContext(), "request sent.", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(), "request sent.", Toast.LENGTH_SHORT).show();
                     butRequest.setText("Send Coursemate Request");
                 }
             }
@@ -357,14 +326,16 @@ public class FriendProfile extends DialogFragment {
             }
         });
     }
-    public void setPrivacy(boolean showPersonal,boolean showRequestStatus){
+
+    public void setPrivacy(boolean showPersonal, boolean showRequestStatus) {
         this.showPersonal = showPersonal;
         this.showRequestStatus = showRequestStatus;
     }
-    public void fetchProfile(int id){
+
+    public void fetchProfile(int id) {
         //function to make profile detail rest call
         ShowProgressBar(true);
-        if(id > 0){
+        if (id > 0) {
             ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
             Call<ServerResponse> getUser = apiInterface.getUser(id);
             getUser.enqueue(new Callback<ServerResponse>() {
@@ -382,7 +353,7 @@ public class FriendProfile extends DialogFragment {
                 @Override
                 public void onFailure(Call<ServerResponse> call, Throwable t) {
                     ShowProgressBar(false);
-                   // Toast.makeText(getContext(),"Error connection.",Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(),"Error connection.",Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -390,10 +361,50 @@ public class FriendProfile extends DialogFragment {
     }
 
     public void ShowProgressBar(boolean b) {
-        if(b){
+        if (b) {
             progressBar.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    public class CourseHolder extends RecyclerView.ViewHolder {
+        TextView courseCode, courseUnit;
+
+        public CourseHolder(View itemView) {
+            super(itemView);
+            courseCode = (TextView) itemView.findViewById(R.id.course_code);
+            courseUnit = (TextView) itemView.findViewById(R.id.course_unit);
+
+        }
+
+        public void bindCourse(Course c) {
+            courseCode.setText(c.getCourseCode());
+            courseUnit.setText("unit: " + c.getCourseUnit());
+        }
+    }
+
+    public class CourseAdapter extends RecyclerView.Adapter<CourseHolder> {
+        List<Course> courseList;
+
+        public CourseAdapter(List<Course> list) {
+            this.courseList = list;
+        }
+
+        @Override
+        public CourseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.course_single_view, parent, false);
+            return new CourseHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(CourseHolder holder, int position) {
+            holder.bindCourse(courseList.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return courseList.size();
         }
     }
 }

@@ -12,6 +12,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
  */
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     private static String TAG = MyFirebaseInstanceIDService.class.getSimpleName();
+
     @Override
     public void onTokenRefresh() {
         super.onTokenRefresh();
@@ -19,8 +20,9 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         storeRegIdInPref(refreshedToken);
 
     }
-    private void SendTokenToServer(String token){
-        Log.d(TAG,"sendTokentoServer: "+token);
+
+    private void SendTokenToServer(String token) {
+        Log.d(TAG, "sendTokentoServer: " + token);
     }
 
     private void storeRegIdInPref(String token) {

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.akinropo.taiwo.coursemate.AllFragments.DiscoverFeatureResult">
+
     <com.akinropo.taiwo.coursemate.PrivateClasses.AutofitRecyclerView
         android:id="@+id/result_users"
         style="@style/Channels.RecyclerView"

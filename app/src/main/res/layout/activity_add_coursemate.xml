@@ -1,148 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.akinropo.taiwo.coursemate.AllActivities.AddCoursemateActivity"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.akinropo.taiwo.coursemate.AllActivities.AddCoursemateActivity">
+
     <android.support.v7.widget.Toolbar
+        android:id="@+id/cm_add_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:title="Add Coursemate"
-        android:elevation="7dp"
-        android:titleTextColor="@android:color/white"
-        android:id="@+id/cm_add_toolbar"
         android:background="@color/colorPrimaryDark"
-        ></android.support.v7.widget.Toolbar>
+        android:elevation="7dp"
+        android:title="Add Coursemate"
+        android:titleTextColor="@android:color/white"></android.support.v7.widget.Toolbar>
+
     <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/cm_background"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="7dp"
         android:paddingRight="7dp"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:background="@color/cm_background" >
+        android:paddingTop="@dimen/activity_vertical_margin">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/linearLayout">
+                android:orientation="vertical">
+
                 <Button
+                    android:id="@+id/coursemate_add_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/btn_login_bg"
+                    android:singleLine="true"
                     android:text="Add by name"
-                    android:singleLine="true"
-                    android:textColor="@color/btn_login"
-                    android:background="@color/btn_login_bg"
-                    android:layout_marginBottom="4dp"
-                    android:id="@+id/coursemate_add_name"/>
+                    android:textColor="@color/btn_login" />
+
                 <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Add by email"
-                    android:singleLine="true"
-                    android:textColor="@color/btn_login"
-                    android:background="@color/btn_login_bg"
                     android:id="@+id/coursemate_add_email"
-                    android:layout_marginBottom="4dp"/>
-                <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Add by phone number"
-                    android:singleLine="true"
-                    android:textColor="@color/btn_login"
-                    android:background="@color/btn_login_bg"
-                    android:id="@+id/coursemate_add_phone"
-                    android:layout_marginBottom="4dp"/>
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Add by Department"
-                    android:singleLine="true"
-                    android:textColor="@color/btn_login"
-                    android:background="@color/btn_login_bg"
                     android:layout_marginBottom="4dp"
-                    android:id="@+id/coursemate_add_dept"/>
+                    android:background="@color/btn_login_bg"
+                    android:singleLine="true"
+                    android:text="Add by email"
+                    android:textColor="@color/btn_login" />
+
                 <Button
+                    android:id="@+id/coursemate_add_phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Add by Faculty"
-                    android:singleLine="true"
-                    android:textColor="@color/btn_login"
+                    android:layout_marginBottom="4dp"
                     android:background="@color/btn_login_bg"
+                    android:singleLine="true"
+                    android:text="Add by phone number"
+                    android:textColor="@color/btn_login" />
+
+                <Button
+                    android:id="@+id/coursemate_add_dept"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/btn_login_bg"
+                    android:singleLine="true"
+                    android:text="Add by Department"
+                    android:textColor="@color/btn_login" />
+
+                <Button
                     android:id="@+id/coursemate_add_faculty"
-                    android:layout_marginBottom="4dp"/>
-                <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Add by Course Code"
-                    android:singleLine="true"
-                    android:textColor="@color/btn_login"
+                    android:layout_marginBottom="4dp"
                     android:background="@color/btn_login_bg"
+                    android:singleLine="true"
+                    android:text="Add by Faculty"
+                    android:textColor="@color/btn_login" />
+
+                <Button
                     android:id="@+id/coursemate_add_code"
-                    android:layout_marginBottom="4dp"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/btn_login_bg"
+                    android:singleLine="true"
+                    android:text="Add by Course Code"
+                    android:textColor="@color/btn_login" />
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout" >
+                android:layout_below="@+id/linearLayout">
+
                 <ProgressBar
+                    android:id="@+id/coursemate_add_progress"
                     style="?android:attr/progressBarStyleLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:progressBackgroundTint="@color/colorPrimary"
                     android:layout_centerInParent="true"
                     android:padding="10dp"
-                    android:id="@+id/coursemate_add_progress"
-                    />
+                    android:progressBackgroundTint="@color/colorPrimary"
+                    android:visibility="gone" />
+
                 <LinearLayout
+                    android:id="@+id/coursemate_add_search_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="4"
-                    android:id="@+id/coursemate_add_search_layout"
                     android:layout_marginTop="7dp"
-                    android:visibility="gone">
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="4">
+
                     <EditText
                         android:id="@+id/coursemate_add_editext"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:layout_weight="3"
                         android:background="@android:color/white"
                         android:hint="@string/hint_major"
+                        android:imeOptions="actionNext"
                         android:inputType="text"
                         android:padding="10dp"
-                        android:imeOptions="actionNext"
                         android:singleLine="true"
                         android:textColor="@color/input_login"
-                        android:textColorHint="@color/input_login_hint"
-                        android:layout_weight="3"
-                        android:layout_width="0dp"/>
+                        android:textColorHint="@color/input_login_hint" />
+
                     <ImageButton
-                        android:layout_width="0dp"
-                        android:padding="5dp"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_action_search"
                         android:id="@+id/coursemate_add_search"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@color/btn_login"
-                        android:layout_weight="1"/>
+                        android:padding="5dp"
+                        android:src="@drawable/ic_action_search" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/coursemate_add_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:padding="4dp"
         android:background="@android:color/white"
-        android:id="@+id/coursemate_add_list" >
-    </android.support.v7.widget.RecyclerView>
+        android:padding="4dp"
+        android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

@@ -4,8 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,9 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,17 +54,17 @@ public class GroupProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_profile);
-        progressBar = (ProgressBar)findViewById(R.id.coursemate_progressbar);
+        progressBar = (ProgressBar) findViewById(R.id.coursemate_progressbar);
         theGroup = getIntent().getParcelableExtra(EndPoints.PASSED_GROUP);
-        toolbar = (Toolbar)findViewById(R.id.group_profile_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.group_profile_toolbar);
         toolbar.setTitle(theGroup.getGroupName());
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-        groupMembers = (RecyclerView)findViewById(R.id.groupMembers);
+        groupMembers = (RecyclerView) findViewById(R.id.groupMembers);
         setSupportActionBar(toolbar);
         selectionListener = new CoursemateFragment.CoursemateSelectionListener() {
             @Override
             public void onCmSelected(User user) {
-                if(user != null) showProfile(user);
+                if (user != null) showProfile(user);
             }
         };
         LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
@@ -76,7 +74,7 @@ public class GroupProfile extends AppCompatActivity {
                 apiGetGroupMember(page);
             }
         };
-        adapter = new memberAdapter(memberList,selectionListener);
+        adapter = new memberAdapter(memberList, selectionListener);
         groupMembers.setItemAnimator(new DefaultItemAnimator());
         groupMembers.setLayoutManager(manager);
         groupMembers.setAdapter(adapter);
@@ -84,24 +82,25 @@ public class GroupProfile extends AppCompatActivity {
         apiGetGroupMember(1);
 
     }
-    public void populate(List<User> mlist){
+
+    public void populate(List<User> mlist) {
         memberList.addAll(mlist);
         adapter.notifyDataSetChanged();
-       // Toast.makeText(getApplicationContext(),"The list is just populated right now",Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getApplicationContext(),"The list is just populated right now",Toast.LENGTH_SHORT).show();
     }
 
-    public void apiGetGroupMember(int currentPage){
-        if(currentPage == 1) ShowProgressBar(true);
+    public void apiGetGroupMember(int currentPage) {
+        if (currentPage == 1) ShowProgressBar(true);
         ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
-        Call<ServerResponse> getGroupMembers = apiInterface.getGroupMembers(theGroup.getGroupId(),currentPage);
+        Call<ServerResponse> getGroupMembers = apiInterface.getGroupMembers(theGroup.getGroupId(), currentPage);
         getGroupMembers.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 ShowProgressBar(false);
-                if(response.isSuccessful()){
-                    List<User>  users = response.body().getCoursemates();
+                if (response.isSuccessful()) {
+                    List<User> users = response.body().getCoursemates();
                     populate(users);
-                }else {
+                } else {
                     Toast.makeText(GroupProfile.this, "No user in the group yet.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -114,75 +113,17 @@ public class GroupProfile extends AppCompatActivity {
         });
     }
 
-    class memberAdapter extends RecyclerView.Adapter<memberAdapter.memberHolder>{
-
-        List<User> courseList = new ArrayList<>();
-        CoursemateFragment.CoursemateSelectionListener listener;
-
-        public class memberHolder extends RecyclerView.ViewHolder {
-
-            TextView mateName,mateMajor;
-            ImageView matePhoto;
-
-            public memberHolder(View itemView) {
-                super(itemView);
-                mateName = (TextView)itemView.findViewById(R.id.request_name);
-                mateMajor = (TextView)itemView.findViewById(R.id.request_major);
-                matePhoto = (ImageView)itemView.findViewById(R.id.request_photo);
-            }
-            public void bindCourse(final User c,final int position, final CoursemateFragment.CoursemateSelectionListener listener){
-                mateName.setText(c.getFirstname() + " " + c.getOthername());
-                mateMajor.setText(c.getMajor());
-                Uri uri = Uri.parse(EndPoints.PHOTO_BASE_URL+c.getPhoto());
-                if(uri != null){
-                    Glide.with(getApplicationContext()).load(uri)
-                            .crossFade()
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .transform(new CircleTransform(getApplicationContext()))
-                            .error(R.drawable.ic_user_account)
-                            .into(matePhoto);
-                }
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        listener.onCmSelected(c);
-                    }
-                });
-            }
-
-        }
-        public memberAdapter(List<User> list,CoursemateFragment.CoursemateSelectionListener selectionListener){
-            this.courseList = list;
-            this.listener = selectionListener;
-        }
-        @Override
-        public memberHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coursemate_single_view, parent, false);
-            return new memberHolder(view);
-        }
-        @Override
-        public void onBindViewHolder(memberHolder holder, int position) {
-            holder.setIsRecyclable(false);
-            holder.bindCourse(courseList.get(position),position,listener);
-        }
-
-        @Override
-        public int getItemCount() {
-            return courseList.size();
-        }
-
-
-    }
-    public void showProfile(User user){
+    public void showProfile(User user) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable(EndPoints.PASSED_USER,user);
+        bundle.putParcelable(EndPoints.PASSED_USER, user);
         FriendProfile friendProfile = new FriendProfile();
-        friendProfile.setPrivacy(false,false);
+        friendProfile.setPrivacy(false, false);
         friendProfile.setArguments(bundle);
         friendProfile.setCancelable(true);
-        friendProfile.show(getSupportFragmentManager(),EndPoints.PASSED_USER);
+        friendProfile.show(getSupportFragmentManager(), EndPoints.PASSED_USER);
     }
-    public void ShowProgressBar(final boolean show){
+
+    public void ShowProgressBar(final boolean show) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -209,5 +150,69 @@ public class GroupProfile extends AppCompatActivity {
             progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
             groupMembers.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    class memberAdapter extends RecyclerView.Adapter<memberAdapter.memberHolder> {
+
+        List<User> courseList = new ArrayList<>();
+        CoursemateFragment.CoursemateSelectionListener listener;
+
+        public memberAdapter(List<User> list, CoursemateFragment.CoursemateSelectionListener selectionListener) {
+            this.courseList = list;
+            this.listener = selectionListener;
+        }
+
+        @Override
+        public memberHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coursemate_single_view, parent, false);
+            return new memberHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(memberHolder holder, int position) {
+            holder.setIsRecyclable(false);
+            holder.bindCourse(courseList.get(position), position, listener);
+        }
+
+        @Override
+        public int getItemCount() {
+            return courseList.size();
+        }
+
+        public class memberHolder extends RecyclerView.ViewHolder {
+
+            TextView mateName, mateMajor;
+            ImageView matePhoto;
+
+            public memberHolder(View itemView) {
+                super(itemView);
+                mateName = (TextView) itemView.findViewById(R.id.request_name);
+                mateMajor = (TextView) itemView.findViewById(R.id.request_major);
+                matePhoto = (ImageView) itemView.findViewById(R.id.request_photo);
+            }
+
+            public void bindCourse(final User c, final int position, final CoursemateFragment.CoursemateSelectionListener listener) {
+                mateName.setText(c.getFirstname() + " " + c.getOthername());
+                mateMajor.setText(c.getMajor());
+                Uri uri = Uri.parse(EndPoints.PHOTO_BASE_URL + c.getPhoto());
+                if (uri != null) {
+                    Glide.with(getApplicationContext()).load(uri)
+                            .crossFade()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .transform(new CircleTransform(getApplicationContext()))
+                            .error(R.drawable.ic_user_account)
+                            .into(matePhoto);
+                }
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listener.onCmSelected(c);
+                    }
+                });
+            }
+
+        }
+
+
     }
 }

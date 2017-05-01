@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="cm_suggest_image_size" >50dp</dimen>
+    <dimen name="cm_suggest_image_size">50dp</dimen>
     <dimen name="cm_suggest_dept_size">11sp</dimen>
     <dimen name="cm_suggest_add_cm_padd">7sp</dimen>
     <dimen name="cm_suggest_width">140dp</dimen>

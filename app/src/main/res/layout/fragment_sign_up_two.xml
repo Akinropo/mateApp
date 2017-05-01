@@ -9,12 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="20dp"
+            android:orientation="vertical"
             android:paddingLeft="20dp"
-            android:orientation="vertical">
+            android:paddingRight="20dp">
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/signup_major"
@@ -22,8 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@android:color/white"
-                android:padding="10dp"
-                />
+                android:padding="10dp" />
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/signup_faculty"
@@ -31,8 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@android:color/white"
-                android:padding="10dp"
-                />
+                android:padding="10dp" />
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/signup_year_entry"
@@ -41,6 +40,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@android:color/white"
                 android:padding="10dp" />
+
             <EditText
                 android:id="@+id/signup_highschool"
                 android:layout_width="fill_parent"
@@ -48,9 +48,9 @@
                 android:layout_marginBottom="10dp"
                 android:background="@android:color/white"
                 android:hint="@string/hint_highschool"
+                android:imeOptions="actionDone"
                 android:inputType="text"
                 android:padding="10dp"
-                android:imeOptions="actionDone"
                 android:singleLine="true"
                 android:textColor="@color/input_login" />
 
@@ -58,9 +58,9 @@
                 android:id="@+id/signup_button_two"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_sign_up"
                 android:background="@color/btn_login"
-                android:textColor="@android:color/white"/>
+                android:text="@string/btn_sign_up"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 

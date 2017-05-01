@@ -3,139 +3,157 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AllFragments.SetInterest">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_margin="10dp"
         android:gravity="center"
-        android:padding="10dp"
-        android:layout_margin="10dp">
+        android:orientation="vertical"
+        android:padding="10dp">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="what do you have interest in ?"
-            android:layout_gravity="center"
             android:id="@+id/interest_description"
-            android:textColor="@android:color/black"
-            android:layout_margin="7dp" />
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal"
-           android:nestedScrollingEnabled="true">
-           <Button
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="#news"
-               android:id="@+id/interest_news"
-               android:layout_margin="5dp"
-               android:background="@drawable/interest_button_background"/>
-           <Button
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:id="@+id/interest_music"
-               android:text="#music"
-               android:layout_margin="4dp"
-               android:background="@drawable/interest_button_background"/>
-           <Button
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="#studying"
-               android:id="@+id/interest_studying"
-               android:layout_margin="4dp"
-               android:background="@drawable/interest_button_background"/>
-       </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:nestedScrollingEnabled="true">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/interest_sport"
-                android:text="#sports"
-                android:layout_margin="5dp"
-                android:background="@drawable/interest_button_background"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#movies"
-                android:id="@+id/interest_movie"
-                android:layout_margin="4dp"
-                android:background="@drawable/interest_button_background"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#football"
-                android:id="@+id/interest_football"
-                android:layout_margin="4dp"
-                android:background="@drawable/interest_button_background"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:nestedScrollingEnabled="true">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#basketball"
-                android:id="@+id/interest_basketball"
-                android:layout_margin="5dp"
-                android:background="@drawable/interest_button_background"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#world news"
-                android:id="@+id/interest_world_news"
-                android:layout_margin="4dp"
-                android:background="@drawable/interest_button_background"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#politics"
-                android:id="@+id/interest_politics"
-                android:layout_margin="4dp"
-                android:background="@drawable/interest_button_background"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:nestedScrollingEnabled="true">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#sport news"
-                android:id="@+id/interest_sport_news"
-                android:layout_margin="4dp"
-                android:background="@drawable/interest_button_background"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#writing"
-                android:id="@+id/interest_writing"
-                android:layout_margin="4dp"
-                android:background="@drawable/interest_button_background"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#entertainment"
-                android:id="@+id/interest_entertainment"
-                android:layout_margin="4dp"
-                android:background="@drawable/interest_button_background"/>
-        </LinearLayout>
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Done"
+            android:layout_gravity="center"
+            android:layout_margin="7dp"
+            android:text="what do you have interest in ?"
+            android:textColor="@android:color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/interest_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/interest_button_background"
+                android:text="#news" />
+
+            <Button
+                android:id="@+id/interest_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/interest_button_background"
+                android:text="#music" />
+
+            <Button
+                android:id="@+id/interest_studying"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/interest_button_background"
+                android:text="#studying" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/interest_sport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/interest_button_background"
+                android:text="#sports" />
+
+            <Button
+                android:id="@+id/interest_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/interest_button_background"
+                android:text="#movies" />
+
+            <Button
+                android:id="@+id/interest_football"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/interest_button_background"
+                android:text="#football" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/interest_basketball"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/interest_button_background"
+                android:text="#basketball" />
+
+            <Button
+                android:id="@+id/interest_world_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/interest_button_background"
+                android:text="#world news" />
+
+            <Button
+                android:id="@+id/interest_politics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/interest_button_background"
+                android:text="#politics" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/interest_sport_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/interest_button_background"
+                android:text="#sport news" />
+
+            <Button
+                android:id="@+id/interest_writing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/interest_button_background"
+                android:text="#writing" />
+
+            <Button
+                android:id="@+id/interest_entertainment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/interest_button_background"
+                android:text="#entertainment" />
+        </LinearLayout>
+
+        <Button
             android:id="@+id/interest_done"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@drawable/button_background_active"
-            />
+            android:text="Done"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

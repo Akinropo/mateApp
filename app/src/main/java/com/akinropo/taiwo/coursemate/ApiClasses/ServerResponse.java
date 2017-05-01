@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import com.akinropo.taiwo.coursemate.PrivateClasses.Course;
 import com.akinropo.taiwo.coursemate.PrivateClasses.Post;
 import com.akinropo.taiwo.coursemate.PrivateClasses.User;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -15,6 +14,17 @@ import java.util.List;
  */
 public class ServerResponse implements Parcelable {
 
+    public static final Creator<ServerResponse> CREATOR = new Creator<ServerResponse>() {
+        @Override
+        public ServerResponse createFromParcel(Parcel in) {
+            return new ServerResponse(in);
+        }
+
+        @Override
+        public ServerResponse[] newArray(int size) {
+            return new ServerResponse[size];
+        }
+    };
     boolean error; //api varible for response error or not.
     User data; //api varible for fetch single user;
     String message; //api variable for server's attach message/details.
@@ -26,7 +36,6 @@ public class ServerResponse implements Parcelable {
     boolean hasNext; //api variable to determine if the request still has a next page.
     int last_page; //api variable to get the last page requested on the server.
     GroupRes newGroup; //api variable to get the just created group;
-
 
     protected ServerResponse(Parcel in) {
         error = in.readByte() != 0;
@@ -42,18 +51,6 @@ public class ServerResponse implements Parcelable {
         newGroup = in.readParcelable(GroupRes.class.getClassLoader());
     }
 
-    public static final Creator<ServerResponse> CREATOR = new Creator<ServerResponse>() {
-        @Override
-        public ServerResponse createFromParcel(Parcel in) {
-            return new ServerResponse(in);
-        }
-
-        @Override
-        public ServerResponse[] newArray(int size) {
-            return new ServerResponse[size];
-        }
-    };
-
     public GroupRes getNewGroup() {
         return newGroup;
     }
@@ -63,7 +60,6 @@ public class ServerResponse implements Parcelable {
     }
 
 
-
     public boolean isHasNext() {
         return hasNext;
     }
@@ -71,7 +67,6 @@ public class ServerResponse implements Parcelable {
     public List<Post> getPosts() {
         return posts;
     }
-
 
 
     public int getStatus() {

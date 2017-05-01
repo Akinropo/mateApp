@@ -1,55 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:emojicon="http://schemas.android.com/apk/res-auto">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:emojicon="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-  <include layout="@layout/toolbar_inverted_layout" />
+    <include layout="@layout/toolbar_inverted_layout" />
 
-  <FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <android.support.v7.widget.RecyclerView
-      android:id="@+id/messages_recycler_view"
-      style="@style/Chat.RecyclerView"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/messages_recycler_view"
+            style="@style/Chat.RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <LinearLayout
-      style="@style/Chat.NewMessage.Layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom"
-      android:layout_marginBottom="@dimen/chat_new_message_margin"
-      android:layout_marginEnd="@dimen/chat_new_message_margin"
-      android:layout_marginStart="@dimen/chat_new_message_margin"
-      android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            style="@style/Chat.NewMessage.Layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/smiley"
-            android:id="@+id/emoji_switcher"/>
-      <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
-        android:id="@+id/message_edit"
-        style="@style/Chat.NewMessage.Text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-          emojicon:emojiconSize="28sp"
-        />
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/chat_new_message_margin"
+            android:layout_marginEnd="@dimen/chat_new_message_margin"
+            android:layout_marginStart="@dimen/chat_new_message_margin"
+            android:orientation="horizontal">
 
-      <ImageView
-        android:id="@+id/submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/chat_new_message_margin"
-          android:layout_marginLeft="@dimen/chat_new_message_margin"
-        android:src="@drawable/ic_send"
-          tools:ignore="RtlCompat" />
+            <ImageView
+                android:id="@+id/emoji_switcher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/smiley" />
 
-    </LinearLayout>
+            <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
+                android:id="@+id/message_edit"
+                style="@style/Chat.NewMessage.Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                emojicon:emojiconSize="28sp" />
 
-  </FrameLayout>
+            <ImageView
+                android:id="@+id/submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/chat_new_message_margin"
+                android:layout_marginStart="@dimen/chat_new_message_margin"
+                android:src="@drawable/ic_send"
+                tools:ignore="RtlCompat" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </merge>

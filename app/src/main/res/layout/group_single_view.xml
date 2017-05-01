@@ -1,45 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
+    android:layout_margin="10dp"
     android:background="?attr/selectableItemBackground"
-    android:layout_margin="10dp">
+    android:clickable="true"
+    android:orientation="vertical">
+
     <TextView
+        android:id="@+id/group_single_logo"
         android:layout_width="@dimen/cm_single_photo"
         android:layout_height="@dimen/cm_single_photo"
-        android:id="@+id/group_single_logo"
+        android:layout_marginRight="7dp"
         android:background="@drawable/circle"
-        android:text="M"
         android:gravity="center"
         android:singleLine="true"
-        android:textSize="22sp"
+        android:text="M"
         android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:layout_marginRight="7dp"/>
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
     <TextView
+        android:id="@+id/group_single_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textColor="@color/primary_text"
-        android:text="My Group"
-        android:textStyle="bold"
-        android:singleLine="true"
-        android:id="@+id/group_single_name"
         android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/group_single_logo"
         android:layout_toRightOf="@+id/group_single_logo"
-        android:layout_toEndOf="@+id/group_single_logo" />
-    <TextView android:id="@+id/unread_count"
+        android:singleLine="true"
+        android:text="My Group"
+        android:textColor="@color/primary_text"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/unread_count"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:gravity="center"
-        android:textSize="10dp"
-        android:textColor="@android:color/white"
+        android:layout_alignParentRight="true"
         android:layout_below="@id/group_single_name"
         android:layout_marginTop="5dp"
-        android:layout_alignParentRight="true"
+        android:background="@drawable/count_bg"
+        android:gravity="center"
         android:text="5"
-        android:visibility="gone"
-        android:background="@drawable/count_bg"/>
+        android:textColor="@android:color/white"
+        android:textSize="10dp"
+        android:visibility="gone" />
 
 </RelativeLayout>

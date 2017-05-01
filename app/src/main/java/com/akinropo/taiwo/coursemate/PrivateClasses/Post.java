@@ -3,12 +3,21 @@ package com.akinropo.taiwo.coursemate.PrivateClasses;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Created by TAIWO on 1/21/2017.
  */
-public class Post implements Parcelable{
+public class Post implements Parcelable {
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
+        @Override
+        public Post createFromParcel(Parcel in) {
+            return new Post(in);
+        }
+
+        @Override
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
     int id;
     String flag;
     String message;
@@ -20,12 +29,8 @@ public class Post implements Parcelable{
     String photocaption;
     String time_stamp;
     User user = null;
-
-    public void setIsDisliked(boolean isDisliked) {
-        this.isDisliked = isDisliked;
-    }
-
     boolean isLiked;
+    boolean isDisliked;
 
     protected Post(Parcel in) {
         id = in.readInt();
@@ -43,23 +48,13 @@ public class Post implements Parcelable{
         isDisliked = in.readByte() != 0;
     }
 
-    public static final Creator<Post> CREATOR = new Creator<Post>() {
-        @Override
-        public Post createFromParcel(Parcel in) {
-            return new Post(in);
-        }
-
-        @Override
-        public Post[] newArray(int size) {
-            return new Post[size];
-        }
-    };
+    public void setIsDisliked(boolean isDisliked) {
+        this.isDisliked = isDisliked;
+    }
 
     public boolean isDisliked() {
         return isDisliked;
     }
-
-    boolean isDisliked;
 
     public boolean isLiked() {
         return isLiked;
@@ -68,12 +63,6 @@ public class Post implements Parcelable{
     public void setIsLiked(boolean isLiked) {
         this.isLiked = isLiked;
     }
-
-
-
-
-
-
 
 
     public User getUser() {

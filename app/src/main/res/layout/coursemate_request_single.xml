@@ -1,74 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:background="?attr/selectableItemBackground"
     android:layout_margin="10dp"
-    android:layout_marginBottom="13dp">
+    android:layout_marginBottom="13dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:orientation="vertical">
+
     <ImageView
+        android:id="@+id/request_photo"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:id="@+id/request_photo"
-        android:src="@drawable/ic_user_account"
-        android:layout_marginRight="7dp"/>
+        android:layout_marginRight="7dp"
+        android:src="@drawable/ic_user_account" />
+
     <TextView
+        android:id="@+id/request_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="17sp"
-        android:textColor="@color/primary_text"
-        android:text="Akinropo Taiwo Damilare"
-        android:textStyle="bold"
-        android:layout_marginTop="10sp"
         android:layout_marginBottom="7dp"
-        android:singleLine="true"
+        android:layout_marginTop="10sp"
         android:layout_toRightOf="@id/request_photo"
-        android:id="@+id/request_name"/>
+        android:singleLine="true"
+        android:text="Akinropo Taiwo Damilare"
+        android:textColor="@color/primary_text"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
     <TextView
+        android:id="@+id/request_major"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:text="Computer Science"
-        android:singleLine="true"
-        android:id="@+id/request_major"
-        android:layout_below="@+id/request_name"
         android:layout_alignLeft="@+id/request_name"
-        android:layout_alignStart="@+id/request_name" />
+        android:layout_alignStart="@+id/request_name"
+        android:layout_below="@+id/request_name"
+        android:singleLine="true"
+        android:text="Computer Science"
+        android:textSize="14sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_below="@+id/request_major"
-        >
+        android:orientation="vertical">
+
         <LinearLayout
+            android:id="@+id/request_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center"
-            android:id="@+id/request_buttons">
+            android:orientation="horizontal">
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Accept"
-                android:textColor="@android:color/white"
-                android:background="@drawable/request_button_selector_inverse"
                 android:id="@+id/request_accept"
-                />
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Not Now"
-                android:background="@drawable/request_button_selector"
+                android:background="@drawable/request_button_selector_inverse"
+                android:text="Accept"
+                android:textColor="@android:color/white" />
+
+            <Button
                 android:id="@+id/request_reject"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/request_button_selector"
+                android:text="Not Now" />
         </LinearLayout>
+
         <Button
+            android:id="@+id/request_decision_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Accepted"
-            android:visibility="gone"
-            android:id="@+id/request_decision_button"
-            />
+            android:visibility="gone" />
 
     </LinearLayout>
 </RelativeLayout>

@@ -1,7 +1,6 @@
 package com.akinropo.taiwo.coursemate.FirebaseChat;
 
 import android.support.v7.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,19 +8,18 @@ import com.akinropo.taiwo.coursemate.PrivateClasses.MyPreferenceManager;
 import com.akinropo.taiwo.coursemate.PrivateClasses.User;
 import com.akinropo.taiwo.coursemate.R;
 
-import static com.akinropo.taiwo.coursemate.FirebaseChat.MessageBubbleDrawable.*;
-
-
 import java.util.ArrayList;
+
+import static com.akinropo.taiwo.coursemate.FirebaseChat.MessageBubbleDrawable.Gravity;
 
 class ChatAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
-    private MyPreferenceManager manager;
     private static final int VIEW_TYPE_MESSAGE_THIS_USER = 0;
     private static final int VIEW_TYPE_MESSAGE_OTHER_USERS = 1;
+    private final LayoutInflater inflater;
+    private MyPreferenceManager manager;
     private Chat chat = new Chat(new ArrayList<Message>());
     private User friendChatter = new User();
-    private final LayoutInflater inflater;
 
     ChatAdapter(LayoutInflater inflater) {
         this.inflater = inflater;
@@ -34,7 +32,8 @@ class ChatAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         this.friendChatter = user;
         notifyDataSetChanged();
     }
-    public void updateUser(User user){
+
+    public void updateUser(User user) {
         this.friendChatter = user;
         notifyDataSetChanged();
     }
@@ -55,7 +54,8 @@ class ChatAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         messageView.setTextBackground(bubbleDrawable);
         return new MessageViewHolder(messageView);
     }
-    public void addMessage(Message message){
+
+    public void addMessage(Message message) {
         chat.addMessage(message);
         notifyDataSetChanged();
     }
@@ -63,7 +63,7 @@ class ChatAdapter extends RecyclerView.Adapter<MessageViewHolder> {
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
         Message message = chat.get(position);
-        if(message.getSenderId() == friendChatter.getId()){
+        if (message.getSenderId() == friendChatter.getId()) {
             message.setSenderPhoto(friendChatter.getPhoto());
         }
         holder.bind(chat.get(position));

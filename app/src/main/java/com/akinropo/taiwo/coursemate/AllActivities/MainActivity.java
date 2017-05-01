@@ -1,10 +1,11 @@
 package com.akinropo.taiwo.coursemate.AllActivities;
 
 //import android.support.design.widget.BottomNavigationView;
+
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,7 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,10 +28,8 @@ import com.akinropo.taiwo.coursemate.AllFragments.SetInterest;
 import com.akinropo.taiwo.coursemate.ApiClasses.EndPoints;
 import com.akinropo.taiwo.coursemate.PrivateClasses.BarNotification;
 import com.akinropo.taiwo.coursemate.PrivateClasses.MyPreferenceManager;
-import com.akinropo.taiwo.coursemate.PrivateClasses.Post;
 import com.akinropo.taiwo.coursemate.PrivateClasses.SetInterestInterface;
 import com.akinropo.taiwo.coursemate.PrivateClasses.SetOnMyBackPressed;
-import com.akinropo.taiwo.coursemate.PrivateClasses.User;
 import com.akinropo.taiwo.coursemate.R;
 import com.github.javiersantos.appupdater.AppUpdater;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
@@ -52,7 +50,7 @@ import co.mobiwise.materialintro.shape.FocusGravity;
 import co.mobiwise.materialintro.shape.ShapeType;
 import co.mobiwise.materialintro.view.MaterialIntroView;
 
-public class MainActivity extends AppCompatActivity implements BarNotification.SetNofificationListener,SetOnMyBackPressed {
+public class MainActivity extends AppCompatActivity implements BarNotification.SetNofificationListener, SetOnMyBackPressed {
     BottomBar bottomBar;
     FragmentTransaction fragmentTransaction;
     Handler mHandler;
@@ -74,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements BarNotification.S
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,12 +79,12 @@ public class MainActivity extends AppCompatActivity implements BarNotification.S
         barNotification = new BarNotification(getApplicationContext());
         barNotification.setListener(this);
 
-        toolbar = (Toolbar)findViewById(R.id.mainActivity_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.mainActivity_toolbar);
         toolbar.setNavigationIcon(R.mipmap.ic_launcher);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         final MyPreferenceManager manager = new MyPreferenceManager(getApplicationContext());
-        if(1 > 1){
+        if (1 > 1) {
             Handler sInterest = new Handler();
             sInterest.postDelayed(new Runnable() {
                 @Override
@@ -96,16 +93,16 @@ public class MainActivity extends AppCompatActivity implements BarNotification.S
                     setInterest.setInterFAce(new SetInterestInterface() {
                         @Override
                         public void doneSettingInterest(String interests) {
-                            Toast.makeText(getApplicationContext(),"setinterest gave me "+interests,Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "setinterest gave me " + interests, Toast.LENGTH_LONG).show();
                         }
-                    },true);
+                    }, true);
                     setInterest.show(getSupportFragmentManager(), EndPoints.PASSED_USER);
                     manager.setInterest(true);
                 }
-            },5000);
+            }, 5000);
 
         }
-        viewPager = (ViewPager)findViewById(R.id.main_fragments);
+        viewPager = (ViewPager) findViewById(R.id.main_fragments);
         fragmentList.add(new PostFragment());
         fragmentList.add(new CmFragment());
         fragmentList.add(new ChatFragment());
@@ -118,14 +115,14 @@ public class MainActivity extends AppCompatActivity implements BarNotification.S
         stringList.add("Discover Fragment");
         stringList.add("Discover Feature");
         stringList.add("Me Fragment");
-        viewAdapter = new ViewAdapter(getSupportFragmentManager(),fragmentList,stringList);
+        viewAdapter = new ViewAdapter(getSupportFragmentManager(), fragmentList, stringList);
         viewPager.setAdapter(viewAdapter);
-        bottomBar = (BottomBar)findViewById(R.id.main_bottom_bar);
+        bottomBar = (BottomBar) findViewById(R.id.main_bottom_bar);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 int i = bottomBar.findPositionForTabWithId(tabId);
-                viewPager.setCurrentItem(i,false);
+                viewPager.setCurrentItem(i, false);
                 /*Fragment fragment = null;
                 String tag = null;
                 switch (tabId){
@@ -166,14 +163,14 @@ public class MainActivity extends AppCompatActivity implements BarNotification.S
                 Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
-                        switch (position){
+                        switch (position) {
                             case 1:
                                 actionBar.hide();
-                                ((CmFragment)fragmentList.get(1)).showTutorial();
+                                ((CmFragment) fragmentList.get(1)).showTutorial();
                                 break;
                             case 4:
                                 actionBar.hide();
-                                ((MeFragment)fragmentList.get(4)).showTutorial();
+                                ((MeFragment) fragmentList.get(4)).showTutorial();
                                 break;
                             case 0:
                                 actionBar.show();
@@ -184,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements BarNotification.S
                                 actionBar.show();
                                 checkNotification();
                                 actionBar.setTitle("discover");
-                                ((DiscoverFragment)fragmentList.get(3)).perform();
+                                ((DiscoverFragment) fragmentList.get(3)).perform();
                                 break;
                             case 2:
                                 actionBar.show();
@@ -198,9 +195,9 @@ public class MainActivity extends AppCompatActivity implements BarNotification.S
                         }
                     }
                 };
-               if(runnable != null){
-                   mHand.post(runnable);
-               }
+                if (runnable != null) {
+                    mHand.post(runnable);
+                }
             }
 
             @Override
@@ -218,27 +215,27 @@ public class MainActivity extends AppCompatActivity implements BarNotification.S
         checkForUpdate(true);
         showTutorial(toolbar);
     }
-    public void checkNotification(){
+
+    public void checkNotification() {
         barNotification.init();
     }
 
-    public void loadFragment(final Fragment fragment,final String TAG){
-        if(!fragment.isInLayout()){
+    public void loadFragment(final Fragment fragment, final String TAG) {
+        if (!fragment.isInLayout()) {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.main_fragments, fragment, TAG);
-                    fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+                    fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     fragmentTransaction.commitAllowingStateLoss();
                 }
             };
-            if(runnable != null){
+            if (runnable != null) {
                 mHandler.post(runnable);
             }
-        }
-        else{
-            Toast.makeText(MainActivity.this, "this fragment tagged "+fragment.getTag()+" has been added in the layout before. ", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this, "this fragment tagged " + fragment.getTag() + " has been added in the layout before. ", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -254,42 +251,44 @@ public class MainActivity extends AppCompatActivity implements BarNotification.S
         //this is triggered when there is a new request.
         toggleRequestIcon(state);
     }
-    public void toggleMessageIcon(boolean show){
-        if(show) {
+
+    public void toggleMessageIcon(boolean show) {
+        if (show) {
             toolbar.getMenu().getItem(1).setActionView(R.layout.menu_dot_chat);
             bottomBar.getTabAtPosition(2).setBadgeCount(5);
-        }
-        else {
+        } else {
             toolbar.getMenu().getItem(1).collapseActionView();
             bottomBar.getTabAtPosition(2).removeBadge();
         }
     }
-    public void toggleRequestIcon(boolean show){
-        if(show){
+
+    public void toggleRequestIcon(boolean show) {
+        if (show) {
             toolbar.getMenu().getItem(0).setActionView(R.layout.menu_dot_request);
             bottomBar.getTabAtPosition(3).setBadgeCount(5);
-        }
-        else {
+        } else {
             toolbar.getMenu().getItem(0).collapseActionView();
             bottomBar.getTabAtPosition(3).removeBadge();
         }
     }
-    public void setNavBar(int pos){
+
+    public void setNavBar(int pos) {
         bottomBar.selectTabAtPosition(pos);
     }
 
     @Override
     public void setTheFragment(int position) {
-        if(!(position < 1)){
+        if (!(position < 1)) {
             int prevPos = calcultePrevPos(position);
             viewPager.setCurrentItem(position);
             setNavBar(position);
         }
     }
-    public int calcultePrevPos(int position){
-        if(position > 0){
-            return position-1;
-        }else {
+
+    public int calcultePrevPos(int position) {
+        if (position > 0) {
+            return position - 1;
+        } else {
             return 4;
         }
     }
@@ -302,10 +301,104 @@ public class MainActivity extends AppCompatActivity implements BarNotification.S
         setNavBar(prevPos);
     }
 
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        //the onback listener is attach to each fragment in this method.
+        if ((fragment instanceof MeFragment)) ((MeFragment) fragment).setSetOnMyBackPressed(this);
+        else if (fragment instanceof ChatFragment)
+            ((ChatFragment) fragment).setSetOnMyBackPressed(this);
+        else if (fragment instanceof CmFragment)
+            ((CmFragment) fragment).setSetOnMyBackPressed(this);
+        else if (fragment instanceof PostFragment)
+            ((PostFragment) fragment).setSetOnMyBackPressed(this);
+        else if (fragment instanceof DiscoverFragment) {
+            ((DiscoverFragment) fragment).setSetOnMyBackPressed(this);
+        }
+    }
+
+    public void setOnlineStatus() {
+        MyPreferenceManager manager = new MyPreferenceManager(getApplicationContext());
+        final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference connectionRef = firebaseDatabase.getReference("/users/" + manager.getId() + "/connections");
+
+        final DatabaseReference lastOnlineRef = firebaseDatabase.getReference("/users/" + manager.getId() + "/lastOnline");
+        final DatabaseReference connectedRef = firebaseDatabase.getReference(".info/connected");
+        connectedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean connected = dataSnapshot.getValue(Boolean.class);
+                if (connected) {
+                    //add this device to connection list
+                    DatabaseReference con = connectionRef.push();
+                    con.setValue(Boolean.TRUE);
+                    con.onDisconnect().removeValue(); //remove value when device disconnects.
+
+                    lastOnlineRef.onDisconnect().setValue(ServerValue.TIMESTAMP);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(MainActivity.this, "Error at setOnlineStatus()", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.notification_chat:
+                viewPager.setCurrentItem(2, false);
+                break;
+            case R.id.notification_request:
+                viewPager.setCurrentItem(3, false);
+                break;
+            case R.id.notification_search:
+                startSearchActivity();
+                break;
+        }
+        return false;
+    }
+
+    public void checkForUpdate(boolean check) {
+        if (check) {
+            AppUpdater d = new AppUpdater(this);
+            d.setUpdateFrom(UpdateFrom.XML);
+            d.setUpdateXML("https://imate.herokuapp.com/app/update.xml");
+            d.start();
+        }
+    }
+
+    public void startSearchActivity() {
+        Intent i = new Intent(MainActivity.this, AddCoursemateActivity.class);
+        startActivity(i);
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+    }
+
+    public void showTutorial(View v) {
+        new MaterialIntroView.Builder(this)
+                .enableDotAnimation(true)
+                .enableIcon(false)
+                .setFocusGravity(FocusGravity.CENTER)
+                .setFocusType(Focus.ALL)
+                .setDelayMillis(500)
+                .enableFadeAnimation(true)
+                .performClick(true)
+                .setShape(ShapeType.RECTANGLE)
+                .setInfoText("Click on the search icon to search for fellow students.")
+                .setTarget(v)
+                .setIdempotent(true)
+                .setMaskColor(R.color.colorAccent)
+                .setUsageId("tool_tut") //THIS SHOULD BE UNIQUE ID
+                .show();
+    }
+
     public class ViewAdapter extends FragmentPagerAdapter {
         List<Fragment> fragmentList = new ArrayList<>();
         List<String> stringList = new ArrayList<>();
-        public ViewAdapter(FragmentManager fm,List<Fragment> fragments,List<String> list) {
+
+        public ViewAdapter(FragmentManager fm, List<Fragment> fragments, List<String> list) {
             super(fm);
             this.fragmentList = fragments;
             this.stringList = list;
@@ -325,93 +418,6 @@ public class MainActivity extends AppCompatActivity implements BarNotification.S
         public CharSequence getPageTitle(int position) {
             return stringList.get(position);
         }
-    }
-
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        //the onback listener is attach to each fragment in this method.
-        if((fragment instanceof MeFragment))  ((MeFragment)fragment).setSetOnMyBackPressed(this);
-        else if(fragment instanceof ChatFragment) ((ChatFragment)fragment).setSetOnMyBackPressed(this);
-        else if(fragment instanceof CmFragment) ((CmFragment)fragment).setSetOnMyBackPressed(this);
-        else if(fragment instanceof PostFragment) ((PostFragment)fragment).setSetOnMyBackPressed(this);
-        else if(fragment instanceof DiscoverFragment){
-            ((DiscoverFragment)fragment).setSetOnMyBackPressed(this);
-        }
-    }
-
-    public void setOnlineStatus(){
-        MyPreferenceManager manager = new MyPreferenceManager(getApplicationContext());
-        final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference connectionRef = firebaseDatabase.getReference("/users/" + manager.getId() + "/connections");
-
-        final DatabaseReference lastOnlineRef = firebaseDatabase.getReference("/users/"+manager.getId()+"/lastOnline");
-        final DatabaseReference connectedRef = firebaseDatabase.getReference(".info/connected");
-        connectedRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean connected = dataSnapshot.getValue(Boolean.class);
-                if(connected){
-                    //add this device to connection list
-                    DatabaseReference con = connectionRef.push();
-                    con.setValue(Boolean.TRUE);
-                    con.onDisconnect().removeValue(); //remove value when device disconnects.
-
-                    lastOnlineRef.onDisconnect().setValue(ServerValue.TIMESTAMP);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(MainActivity.this, "Error at setOnlineStatus()", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.notification_chat:
-                viewPager.setCurrentItem(2,false);
-                break;
-            case R.id.notification_request:
-                viewPager.setCurrentItem(3,false);
-                break;
-            case R.id.notification_search:
-                startSearchActivity();
-                break;
-        }
-        return false;
-    }
-    public void checkForUpdate(boolean check){
-        if(check){
-            AppUpdater d = new AppUpdater(this);
-            d.setUpdateFrom(UpdateFrom.XML);
-            d.setUpdateXML("https://imate.herokuapp.com/app/update.xml");
-            d.start();
-        }
-    }
-    public void startSearchActivity(){
-        Intent i = new Intent(MainActivity.this,AddCoursemateActivity.class);
-        startActivity(i);
-        overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
-    }
-    public void showTutorial(View v){
-        new MaterialIntroView.Builder(this)
-                .enableDotAnimation(true)
-                .enableIcon(false)
-                .setFocusGravity(FocusGravity.CENTER)
-                .setFocusType(Focus.ALL)
-                .setDelayMillis(500)
-                .enableFadeAnimation(true)
-                .performClick(true)
-                .setShape(ShapeType.RECTANGLE)
-                .setInfoText("Click on the search icon to search for fellow students.")
-                .setTarget(v)
-                .setIdempotent(true)
-                .setMaskColor(R.color.colorAccent)
-                .setUsageId("tool_tut") //THIS SHOULD BE UNIQUE ID
-                .show();
     }
 
 }

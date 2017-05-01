@@ -18,32 +18,36 @@ public class StaticFragments {
     public static Fragment ChatFragmentm;
     public static Fragment DiscoverFragmentm;
 
-    public static Fragment getPostFragment(){
-        if(PostFragmentm == null){
+    public static Fragment getPostFragment() {
+        if (PostFragmentm == null) {
             PostFragmentm = new PostFragment();
         }
         return PostFragmentm;
     }
-    public static Fragment getCmFragment(){
-        if(CmFragmentm == null){
+
+    public static Fragment getCmFragment() {
+        if (CmFragmentm == null) {
             CmFragmentm = new CmFragment();
         }
         return CmFragmentm;
     }
-    public static Fragment getMeFragment(){
-        if(MeFragmentm == null){
+
+    public static Fragment getMeFragment() {
+        if (MeFragmentm == null) {
             MeFragmentm = new MeFragment();
         }
         return MeFragmentm;
     }
-    public static Fragment getChatFragment(){
-        if(ChatFragmentm == null){
+
+    public static Fragment getChatFragment() {
+        if (ChatFragmentm == null) {
             ChatFragmentm = new ChatFragment();
         }
         return ChatFragmentm;
     }
-    public static Fragment getDiscoverFragment(){
-        if(DiscoverFragmentm == null){
+
+    public static Fragment getDiscoverFragment() {
+        if (DiscoverFragmentm == null) {
             DiscoverFragmentm = new DiscoverFragment();
         }
         return DiscoverFragmentm;

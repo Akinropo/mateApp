@@ -1,10 +1,10 @@
 package com.akinropo.taiwo.coursemate.AllActivities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -33,7 +33,7 @@ public class LogoScreen extends AppCompatActivity {
         setContentView(R.layout.activity_logo_screen);
         manager = new MyPreferenceManager(getApplicationContext());
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
+        if (actionBar != null) {
             actionBar.hide();
         }
         new Handler().postDelayed(new Runnable() {
@@ -41,15 +41,15 @@ public class LogoScreen extends AppCompatActivity {
             public void run() {
                 //start loginAcitivity from here;
                 Intent i;
-                if(manager.isLaunchFirst()){
-                     i = new Intent(LogoScreen.this,MateIntro.class);
+                if (manager.isLaunchFirst()) {
+                    i = new Intent(LogoScreen.this, MateIntro.class);
                     manager.setLaunchFirst(false);
-                }else {
-                    i = new Intent(LogoScreen.this,LoginActivity.class);
+                } else {
+                    i = new Intent(LogoScreen.this, LoginActivity.class);
                 }
                 startActivity(i);
                 LogoScreen.this.finish();
             }
-        },2000);
+        }, 2000);
     }
 }

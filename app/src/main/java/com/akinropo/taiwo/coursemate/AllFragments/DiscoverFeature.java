@@ -34,18 +34,18 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class DiscoverFeature extends Fragment {
-    AppCompatSpinner sexChoose,fMajor,fFaculty;
+    AppCompatSpinner sexChoose, fMajor, fFaculty;
     EditText setInterest;
     Button discoverButton;
     SetInterestInterface setInterestInterface;
-    private discoverResultGotten mListener;
     NestedScrollView nestedView;
     TextView progressText;
     ProgressBar progressBar;
     String freechatsex = "null";
     RelativeLayout relativeLayout;
-    int majPos,facPos = 0;
-    String[] majors,faculties ;
+    int majPos, facPos = 0;
+    String[] majors, faculties;
+    private discoverResultGotten mListener;
 
     public DiscoverFeature() {
         // Required empty public constructor
@@ -60,18 +60,18 @@ public class DiscoverFeature extends Fragment {
         majors = getResources().getStringArray(R.array.department_picker);
         faculties = getResources().getStringArray(R.array.faculty_picker);
 
-        relativeLayout = (RelativeLayout)view.findViewById(R.id.disFeature_loading_freechaters);
-        nestedView = (NestedScrollView)view.findViewById(R.id.disFeature_scrollView);
-        progressText = (TextView)view.findViewById(R.id.disFeature_progressbar_text);
-        progressBar = (ProgressBar)view.findViewById(R.id.disFeature_progressbar);
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.disFeature_loading_freechaters);
+        nestedView = (NestedScrollView) view.findViewById(R.id.disFeature_scrollView);
+        progressText = (TextView) view.findViewById(R.id.disFeature_progressbar_text);
+        progressBar = (ProgressBar) view.findViewById(R.id.disFeature_progressbar);
         showProgress(false);
 
-        fMajor = (AppCompatSpinner)view.findViewById(R.id.disFeature_department);
-        fFaculty = (AppCompatSpinner)view.findViewById(R.id.disFeature_faculty);
-        sexChoose = (AppCompatSpinner)view.findViewById(R.id.disFeature_sex);
-        discoverButton = (Button)view.findViewById(R.id.disFeature_discoverBut);
+        fMajor = (AppCompatSpinner) view.findViewById(R.id.disFeature_department);
+        fFaculty = (AppCompatSpinner) view.findViewById(R.id.disFeature_faculty);
+        sexChoose = (AppCompatSpinner) view.findViewById(R.id.disFeature_sex);
+        discoverButton = (Button) view.findViewById(R.id.disFeature_discoverBut);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.sex_picker,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.sex_picker, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sexChoose.setAdapter(adapter);
         sexChoose.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -96,7 +96,7 @@ public class DiscoverFeature extends Fragment {
         });
         setUpSpinners();
 
-        setInterest = (EditText)view.findViewById(R.id.disFeature_interest);
+        setInterest = (EditText) view.findViewById(R.id.disFeature_interest);
         setInterest.setVisibility(View.GONE);
         setInterestInterface = new SetInterestInterface() {
             @Override
@@ -107,7 +107,7 @@ public class DiscoverFeature extends Fragment {
         setInterest.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
+                if (hasFocus) {
                     //show a the set interest dialog when has focus
                     showSetInterest();
                 }
@@ -123,11 +123,13 @@ public class DiscoverFeature extends Fragment {
         setRetainInstance(true);
         return view;
     }
-    public void showSetInterest(){
+
+    public void showSetInterest() {
         SetInterest setInterest1 = new SetInterest();
-        setInterest1.setInterFAce(setInterestInterface,false);
+        setInterest1.setInterFAce(setInterestInterface, false);
         setInterest1.show(getChildFragmentManager(), EndPoints.DISCOVER_FRAGMENT);
     }
+
     public void onButtonPressed(ServerResponse serverResponse) {
         if (mListener != null) {
             mListener.discoverApiResult(serverResponse);
@@ -151,22 +153,18 @@ public class DiscoverFeature extends Fragment {
         mListener = null;
     }
 
-
-    public interface discoverResultGotten {
-        void discoverApiResult(ServerResponse response);
-    }
-    public void apiGetFreechaters(String dep,String inte,String sex,String fac){
+    public void apiGetFreechaters(String dep, String inte, String sex, String fac) {
         showProgress(true);
         ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
-        Call<ServerResponse> discoverFreechater = apiInterface.discoverFreechater(dep,fac,inte,sex);
+        Call<ServerResponse> discoverFreechater = apiInterface.discoverFreechater(dep, fac, inte, sex);
         discoverFreechater.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 showProgress(false);
-                if(response.isSuccessful()){
-                    if(response.body().getCoursemates().size() > 0){
+                if (response.isSuccessful()) {
+                    if (response.body().getCoursemates().size() > 0) {
                         onButtonPressed(response.body());
-                    }else {
+                    } else {
                         AlertDialog d = new AlertDialog.Builder(getContext())
                                 .setTitle(" ")
                                 .setMessage("No freechater found with the attributes.")
@@ -174,7 +172,7 @@ public class DiscoverFeature extends Fragment {
                         d.show();
                     }
 
-                }else {
+                } else {
                     Toast.makeText(getContext(), "error fetching freechaters", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -185,26 +183,29 @@ public class DiscoverFeature extends Fragment {
             }
         });
     }
-    public void showProgress(boolean show){
-        if(show) {
+
+    public void showProgress(boolean show) {
+        if (show) {
             nestedView.setAlpha(0.1f);
             relativeLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             nestedView.setAlpha(1.0f);
-           relativeLayout.setVisibility(View.GONE);
+            relativeLayout.setVisibility(View.GONE);
         }
     }
-    public void callFreechatApi(){
+
+    public void callFreechatApi() {
         String dep = majors[majPos];
-        if(majPos == 0) dep = "null";
+        if (majPos == 0) dep = "null";
         String fac = faculties[facPos];
-        if(facPos == 0) fac = "null";
+        if (facPos == 0) fac = "null";
         String inte = setInterest.getText().toString().trim();
-        if(inte.isEmpty()) inte = "null";
+        if (inte.isEmpty()) inte = "null";
         String sex = freechatsex;
-        apiGetFreechaters(dep,inte,sex,fac);
+        apiGetFreechaters(dep, inte, sex, fac);
     }
-    public void setUpSpinners(){
+
+    public void setUpSpinners() {
         ArrayAdapter<CharSequence> facAdapter = ArrayAdapter.createFromResource(getContext(), R.array.faculty_picker, android.R.layout.simple_list_item_checked);
         facAdapter.setDropDownViewResource(android.R.layout.select_dialog_multichoice);
         fFaculty.setAdapter(facAdapter);
@@ -235,6 +236,10 @@ public class DiscoverFeature extends Fragment {
             }
         });
 
+    }
+
+    public interface discoverResultGotten {
+        void discoverApiResult(ServerResponse response);
     }
 
 }

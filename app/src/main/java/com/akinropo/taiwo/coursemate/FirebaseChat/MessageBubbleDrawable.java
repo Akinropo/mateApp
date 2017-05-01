@@ -15,10 +15,6 @@ import com.akinropo.taiwo.coursemate.R;
 
 public class MessageBubbleDrawable extends Drawable {
 
-    public enum Gravity {
-        START, END
-    }
-
     private final Paint paint;
     private final RectF rect;
     private Gravity gravity;
@@ -27,7 +23,6 @@ public class MessageBubbleDrawable extends Drawable {
     private int bubbleCenterVertical;
     private int bumpDiameter;
     private int smallBubbleDiameter;
-
     public MessageBubbleDrawable(Context context, @ColorRes int color, Gravity gravity) {
         this.gravity = gravity;
         rect = new RectF();
@@ -79,5 +74,9 @@ public class MessageBubbleDrawable extends Drawable {
     @Override
     public int getOpacity() {
         return PixelFormat.TRANSLUCENT;
+    }
+
+    public enum Gravity {
+        START, END
     }
 }

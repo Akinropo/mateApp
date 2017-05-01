@@ -5,41 +5,35 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.TimeUtils;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.akinropo.taiwo.coursemate.ApiClasses.ApiInterface;
 import com.akinropo.taiwo.coursemate.ApiClasses.ApiRetrofit;
 import com.akinropo.taiwo.coursemate.ApiClasses.EndPoints;
+import com.akinropo.taiwo.coursemate.ApiClasses.ServerResponse;
 import com.akinropo.taiwo.coursemate.PrivateClasses.CircleTransform;
 import com.akinropo.taiwo.coursemate.PrivateClasses.EndlessRecyclerViewScrollListener;
 import com.akinropo.taiwo.coursemate.PrivateClasses.MyPreferenceManager;
 import com.akinropo.taiwo.coursemate.PrivateClasses.Post;
-import com.akinropo.taiwo.coursemate.ApiClasses.ServerResponse;
 import com.akinropo.taiwo.coursemate.PrivateClasses.SetOnMyBackPressed;
 import com.akinropo.taiwo.coursemate.PrivateClasses.User;
 import com.akinropo.taiwo.coursemate.R;
@@ -50,8 +44,6 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.StorageReference;
 import com.vstechlab.easyfonts.EasyFonts;
 
-import java.security.Timestamp;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -85,14 +77,13 @@ public class PostFragment extends Fragment {
     SetOnMyBackPressed setOnMyBackPressed;
     FirebasePhotoStorage firebasePhotoStorage;
 
-    public void setSetOnMyBackPressed(SetOnMyBackPressed setOnMyBackPressed) {
-        this.setOnMyBackPressed = setOnMyBackPressed;
-    }
-
     public PostFragment() {
         // Required empty public constructor
     }
 
+    public void setSetOnMyBackPressed(SetOnMyBackPressed setOnMyBackPressed) {
+        this.setOnMyBackPressed = setOnMyBackPressed;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,19 +91,19 @@ public class PostFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post, container, false);
         firebasePhotoStorage = new FirebasePhotoStorage();
-        badNetworkLayout = (NestedScrollView)view.findViewById(R.id.bad_post);
+        badNetworkLayout = (NestedScrollView) view.findViewById(R.id.bad_post);
         myPreferenceManager = new MyPreferenceManager(getContext());
-        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.post_refresh);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.post_refresh);
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
         swipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.primary_light));
 
-        fab = (FloatingActionButton)view.findViewById(R.id.post_add);
+        fab = (FloatingActionButton) view.findViewById(R.id.post_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //SetInterest newPost = new SetInterest();
                 NewPost newPost = new NewPost();
-                newPost.setTargetFragment(PostFragment.this,10);
+                newPost.setTargetFragment(PostFragment.this, 10);
                 newPost.setStyle(DialogFragment.STYLE_NO_FRAME, R.style.Dialog_FullScreen);
                 newPost.setCancelable(false);
                 newPost.show(getChildFragmentManager(), EndPoints.PASSED_USER);
@@ -120,7 +111,7 @@ public class PostFragment extends Fragment {
                     @Override
                     public void onNewPost(boolean isRefresh) {
                         scrollListener.resetState();
-                        int i = allPosts.size()-1;
+                        int i = allPosts.size() - 1;
                         allPosts.clear();
                         initiatePostRecycler();
                         apiGetPost(1);
@@ -129,37 +120,38 @@ public class PostFragment extends Fragment {
                 });
             }
         });
-        postList = (RecyclerView)view.findViewById(R.id.post_list);
+        postList = (RecyclerView) view.findViewById(R.id.post_list);
 
         profileListener = new ProfileListener() {
             @Override
             public void onPostNameSelected(final int position) {
-                if(position <= allPosts.size()){
+                if (position <= allPosts.size()) {
                     Handler mhandler = new Handler();
                     Runnable runnable = new Runnable() {
                         @Override
                         public void run() {
-                            if(allPosts.get(position).getUser() != null) showProfile(allPosts.get(position).getUser());
+                            if (allPosts.get(position).getUser() != null)
+                                showProfile(allPosts.get(position).getUser());
                         }
                     };
-                    if(runnable != null){
+                    if (runnable != null) {
                         mhandler.post(runnable);
                     }
                 }
             }
 
             @Override
-            public void onPostLiked(final Post post,final PostHolder holder) {
-                if(holder != null){
+            public void onPostLiked(final Post post, final PostHolder holder) {
+                if (holder != null) {
                     Handler mhandler = new Handler();
                     Runnable runnable = new Runnable() {
                         @Override
                         public void run() {
-                            updateLikeButton(holder,true,post);
+                            updateLikeButton(holder, true, post);
                             apiLikePost(post);
                         }
                     };
-                    if(runnable != null){
+                    if (runnable != null) {
                         mhandler.post(runnable);
                     }
 
@@ -169,23 +161,23 @@ public class PostFragment extends Fragment {
 
             @Override
             public void onPostDislike(final Post post, final PostHolder holder) {
-                if(holder != null){
+                if (holder != null) {
                     Handler mhandler = new Handler();
                     Runnable runnable = new Runnable() {
                         @Override
                         public void run() {
-                            updateLikeButton(holder,true,post);
+                            updateLikeButton(holder, true, post);
                             apiDislikePost(post);
                         }
                     };
-                    if(runnable != null){
+                    if (runnable != null) {
                         mhandler.post(runnable);
                     }
                 }
             }
         };
         manager = new LinearLayoutManager(getContext());
-        scrollListener = new EndlessRecyclerViewScrollListener(manager,postAdapter,allPosts) {
+        scrollListener = new EndlessRecyclerViewScrollListener(manager, postAdapter, allPosts) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 apiGetPost(page);
@@ -210,54 +202,57 @@ public class PostFragment extends Fragment {
         return view;
     }
 
-    public void initiatePostRecycler(){
+    public void initiatePostRecycler() {
         //this function sets everything relating to the recycler view.
         postList.removeAllViews();
-        if(postAdapter != null){
+        if (postAdapter != null) {
             postAdapter.clearList();
             postAdapter.notifyDataSetChanged();
         }
-        postAdapter = new PostAdapter(allPosts,profileListener);
+        postAdapter = new PostAdapter(allPosts, profileListener);
         postList.setLayoutManager(manager);
         postList.setItemAnimator(new DefaultItemAnimator());
         postList.setAdapter(postAdapter);
 
 
     }
-    public void populatePost(List<Post> posts1){
+
+    public void populatePost(List<Post> posts1) {
         allPosts.addAll(posts1);
         postAdapter.notifyDataSetChanged();
     }
-    public void showBadNetwork(boolean show){
-        if(show){
-            if(allPosts.size() == 0){
+
+    public void showBadNetwork(boolean show) {
+        if (show) {
+            if (allPosts.size() == 0) {
                 badNetworkLayout.setVisibility(View.VISIBLE);
                 postList.setVisibility(View.GONE);
                 swipeRefreshLayout.setNestedScrollingEnabled(true);
             }
 
-        }else {
+        } else {
             badNetworkLayout.setVisibility(View.GONE);
             postList.setVisibility(View.VISIBLE);
         }
 
     }
-    public void updateLikeButton(final PostHolder postHolder,boolean animated,Post post){
 
-        if(post.isLiked()){
-            if(animated){
+    public void updateLikeButton(final PostHolder postHolder, boolean animated, Post post) {
+
+        if (post.isLiked()) {
+            if (animated) {
                 //animate the like button
                 AnimatorSet animatorSet = new AnimatorSet();
                 //put in animation list
-                ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(postHolder.btnLike,"rotation",0f,360f);
+                ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(postHolder.btnLike, "rotation", 0f, 360f);
                 rotationAnim.setDuration(300);
                 rotationAnim.setInterpolator(new AccelerateInterpolator());
 
-                ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(postHolder.btnLike,"scaleX",0.2f,1f);
+                ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(postHolder.btnLike, "scaleX", 0.2f, 1f);
                 bounceAnimX.setDuration(300);
                 bounceAnimX.setInterpolator(new OvershootInterpolator(4));
 
-                ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(postHolder.btnLike,"scaleY",0.2f,1f);
+                ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(postHolder.btnLike, "scaleY", 0.2f, 1f);
                 bounceAnimY.setDuration(300);
                 bounceAnimY.setInterpolator(new OvershootInterpolator(4));
                 bounceAnimY.addListener(new AnimatorListenerAdapter() {
@@ -278,23 +273,23 @@ public class PostFragment extends Fragment {
                 });
 
                 animatorSet.start();
-            }else {
+            } else {
                 postHolder.btnLike.setImageResource(R.drawable.ic_like_fill);
             }
-        }else if(post.isDisliked()){
-            if(animated){
+        } else if (post.isDisliked()) {
+            if (animated) {
                 //animate
                 AnimatorSet animatorSet = new AnimatorSet();
                 //put in animation list
-                ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(postHolder.btnUnlike,"rotation",360f,0f);
+                ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(postHolder.btnUnlike, "rotation", 360f, 0f);
                 rotationAnim.setDuration(300);
                 rotationAnim.setInterpolator(new AccelerateInterpolator());
 
-                ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(postHolder.btnUnlike,"scaleX",0.2f,1f);
+                ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(postHolder.btnUnlike, "scaleX", 0.2f, 1f);
                 bounceAnimX.setDuration(300);
                 bounceAnimX.setInterpolator(new OvershootInterpolator(4));
 
-                ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(postHolder.btnUnlike,"scaleY",0.2f,1f);
+                ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(postHolder.btnUnlike, "scaleY", 0.2f, 1f);
                 bounceAnimY.setDuration(300);
                 bounceAnimY.setInterpolator(new OvershootInterpolator(4));
                 bounceAnimY.addListener(new AnimatorListenerAdapter() {
@@ -315,15 +310,16 @@ public class PostFragment extends Fragment {
                 });
 
                 animatorSet.start();
-            }else {
+            } else {
                 postHolder.btnUnlike.setImageResource(R.drawable.ic_unlike_fill);
             }
-        }else {
+        } else {
             postHolder.btnLike.setImageResource(R.drawable.ic_like_outline_grey);
             postHolder.btnUnlike.setImageResource(R.drawable.ic_unlike_outline_grey);
         }
     }
-    public void apiGetPost(final int page){
+
+    public void apiGetPost(final int page) {
         /*if(scrollListener.progressAdded){
             scrollListener.addProgressBar(true);
             scrollListener.progressAdded = true;
@@ -331,11 +327,11 @@ public class PostFragment extends Fragment {
         ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
         swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.startLayoutAnimation();
-        Call<ServerResponse> getPost = apiInterface.getPosts(page,myPreferenceManager.getId());
+        Call<ServerResponse> getPost = apiInterface.getPosts(page, myPreferenceManager.getId());
         getPost.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-               swipeRefreshLayout.setRefreshing(false);
+                swipeRefreshLayout.setRefreshing(false);
                 if (response.isSuccessful()) {
                     List<Post> postList = response.body().getPosts();
                     //scrollListener.addProgressBar(false);
@@ -347,16 +343,17 @@ public class PostFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-               // Toast.makeText(getContext(), "network error", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getContext(), "network error", Toast.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(false);
                 showBadNetwork(true);
             }
         });
     }
-    public void fetchProfile(final int id,final ImageView imad, final int position){
 
-                final User[] user = new User[1];
-                ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
+    public void fetchProfile(final int id, final ImageView imad, final int position) {
+
+        final User[] user = new User[1];
+        ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
         Call<ServerResponse> getUser = apiInterface.getUser(id);
         getUser.enqueue(new Callback<ServerResponse>() {
             @Override
@@ -387,27 +384,107 @@ public class PostFragment extends Fragment {
         });
     }
 
-    public class PostHolder extends RecyclerView.ViewHolder{
-        TextView composerName,postMessage,timeStamp,readMore;
-        ImageView imageView,attachMent;
-        ImageView btnLike,btnUnlike;
+    public void showProfile(User user) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EndPoints.PASSED_USER, user);
+        FriendProfile friendProfile = new FriendProfile();
+        friendProfile.setPrivacy(false, true);
+        friendProfile.setArguments(bundle);
+        friendProfile.setCancelable(true);
+        friendProfile.show(getChildFragmentManager(), EndPoints.PASSED_USER);
+    }
+
+    public void apiLikePost(final Post post) {
+        ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
+        Call<ServerResponse> likePost = apiInterface.likePost(post.getId(), myPreferenceManager.getId());
+        likePost.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                if (response.isSuccessful()) {
+                    post.setIsLiked(response.body().isError());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void apiDislikePost(final Post post) {
+        ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
+        Call<ServerResponse> dislikePost = apiInterface.dislikePost(post.getId(), myPreferenceManager.getId());
+        dislikePost.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                if (response.isSuccessful()) {
+                    post.setIsDisliked(response.body().isError());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void showTutorial() {
+        new MaterialIntroView.Builder(getActivity())
+                .enableDotAnimation(true)
+                .enableIcon(false)
+                .setFocusGravity(FocusGravity.CENTER)
+                .setFocusType(Focus.NORMAL)
+                .setDelayMillis(500)
+                .enableFadeAnimation(true)
+                .performClick(true)
+                .setShape(ShapeType.CIRCLE)
+                .setInfoText("Click to write a new post.")
+                .setTarget(fab)
+                .setIdempotent(true)
+                .setMaskColor(R.color.colorAccent)
+                .setUsageId("post_tut") //THIS SHOULD BE UNIQUE ID
+                .show();
+    }
+
+    public interface ProfileListener {
+
+        public void onPostNameSelected(int position);
+
+        public void onPostLiked(Post post, PostHolder holder);
+
+        public void onPostDislike(Post post, PostHolder holder);
+    }
+
+    //this  interface is for binding with a fragment when opened in this fragment/activity and it will initiate
+    // a call back to refresh the post for a new post make in the new post fragment
+    public interface SetNewPostListener {
+        public void onNewPost(boolean isRefresh);
+    }
+
+    public class PostHolder extends RecyclerView.ViewHolder {
         private final DateFormat timeFormat = SimpleDateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
         private final Date date = new Date();
+        TextView composerName, postMessage, timeStamp, readMore;
+        ImageView imageView, attachMent;
+        ImageView btnLike, btnUnlike;
         StorageReference firebaseImage;
 
         public PostHolder(View itemView) {
             super(itemView);
-            composerName = (TextView)itemView.findViewById(R.id.post_profile_name);
-            postMessage = (TextView)itemView.findViewById(R.id.post_message_text);
-            timeStamp = (TextView)itemView.findViewById(R.id.post_timestamp);
-            imageView = (ImageView)itemView.findViewById(R.id.post_profile_pic);
-            attachMent = (ImageView)itemView.findViewById(R.id.post_attach_image);
-            readMore = (TextView)itemView.findViewById(R.id.post_message_readmore);
-            btnLike = (ImageView)itemView.findViewById(R.id.post_attach_btnLike);
-            btnUnlike = (ImageView)itemView.findViewById(R.id.post_attach_btnUnlike);
+            composerName = (TextView) itemView.findViewById(R.id.post_profile_name);
+            postMessage = (TextView) itemView.findViewById(R.id.post_message_text);
+            timeStamp = (TextView) itemView.findViewById(R.id.post_timestamp);
+            imageView = (ImageView) itemView.findViewById(R.id.post_profile_pic);
+            attachMent = (ImageView) itemView.findViewById(R.id.post_attach_image);
+            readMore = (TextView) itemView.findViewById(R.id.post_message_readmore);
+            btnLike = (ImageView) itemView.findViewById(R.id.post_attach_btnLike);
+            btnUnlike = (ImageView) itemView.findViewById(R.id.post_attach_btnUnlike);
 
         }
-        public void bindPost(final Post post, final int position, final ProfileListener listener, final PostHolder holder){
+
+        public void bindPost(final Post post, final int position, final ProfileListener listener, final PostHolder holder) {
             composerName.setText(post.getComposername());
             composerName.setTypeface(EasyFonts.droidSerifBold(getContext()));
             //CharSequence s = DateUtils.getRelativeTimeSpanString(Long.parseLong(post.getTime_stamp()),System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS);
@@ -415,8 +492,8 @@ public class PostFragment extends Fragment {
             timeStamp.setText(post.getTime_stamp());
             //postMessage.setText(post.getMessage());
             shortenText(post);
-            firebaseImage =firebasePhotoStorage.getPostPhotoRef().child(post.getPhoto());
-            if(!TextUtils.equals(post.getPhoto().trim(),"null")){
+            firebaseImage = firebasePhotoStorage.getPostPhotoRef().child(post.getPhoto());
+            if (!TextUtils.equals(post.getPhoto().trim(), "null")) {
                 Glide.with(getContext())
                         .using(new FirebaseImageLoader())
                         .load(firebaseImage)
@@ -428,14 +505,14 @@ public class PostFragment extends Fragment {
                         .into(attachMent);
                 attachMent.setVisibility(View.VISIBLE);
             }
-            if(TextUtils.equals(post.getFlag().trim(),"r")){
+            if (TextUtils.equals(post.getFlag().trim(), "r")) {
                 composerName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         listener.onPostNameSelected(position);
                     }
                 });
-            }else {
+            } else {
                 Glide.with(getContext()).load(R.drawable.anonymous)
                         .crossFade()
                         .transform(new CircleTransform(getContext()))
@@ -484,15 +561,16 @@ public class PostFragment extends Fragment {
                 }
             });
         }
-        public void bindProfilePic(final int position){
+
+        public void bindProfilePic(final int position) {
             Runnable taiwo = new Runnable() {
                 @Override
                 public void run() {
-                    if(TextUtils.equals(allPosts.get(position).getFlag().trim(), "r")){
-                        if(allPosts.get(position).getUser() == null){
+                    if (TextUtils.equals(allPosts.get(position).getFlag().trim(), "r")) {
+                        if (allPosts.get(position).getUser() == null) {
                             ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
                             final Call<ServerResponse> getUser = apiInterface.getUser(allPosts.get(position).getComposerId());
-                            getUser.enqueue(new Callback<ServerResponse>(){
+                            getUser.enqueue(new Callback<ServerResponse>() {
                                 @Override
                                 public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                                     if (response.isSuccessful()) {
@@ -500,7 +578,7 @@ public class PostFragment extends Fragment {
                                         allPosts.get(position).setUser(user1);
                                         FirebasePhotoStorage firebasePhotoStorage = new FirebasePhotoStorage();
                                         StorageReference firebaseProfile = firebasePhotoStorage.getProfilePhotoRef().child(user1.getPhoto());
-                                        if(firebaseProfile != null){
+                                        if (firebaseProfile != null) {
                                             Glide.with(getContext())
                                                     .using(new FirebaseImageLoader())
                                                     .load(firebaseProfile)
@@ -525,11 +603,11 @@ public class PostFragment extends Fragment {
 
 
                             });
-                        }else {
+                        } else {
 
                             FirebasePhotoStorage firebasePhotoStorage = new FirebasePhotoStorage();
                             StorageReference firebaseProfile = firebasePhotoStorage.getProfilePhotoRef().child(allPosts.get(position).getUser().getPhoto());
-                            if(firebaseProfile != null){
+                            if (firebaseProfile != null) {
                                 Glide.with(getContext())
                                         .using(new FirebaseImageLoader())
                                         .load(firebaseProfile)
@@ -546,15 +624,16 @@ public class PostFragment extends Fragment {
                 }
             };
             Handler two = new Handler();
-            if(taiwo != null){
+            if (taiwo != null) {
                 two.post(taiwo);
             }
 
         }
-        public void shortenText(final Post post){
+
+        public void shortenText(final Post post) {
             postMessage.setTypeface(EasyFonts.robotoRegular(getContext()));
-            if(post.getMessage().toCharArray().length >= 400){
-                postMessage.setText(post.getMessage().substring(0,399));
+            if (post.getMessage().toCharArray().length >= 400) {
+                postMessage.setText(post.getMessage().substring(0, 399));
                 readMore.setVisibility(View.VISIBLE);
                 readMore.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -563,49 +642,52 @@ public class PostFragment extends Fragment {
                         readMore.setVisibility(View.GONE);
                     }
                 });
-            }else{
+            } else {
                 postMessage.setText(post.getMessage());
             }
         }
 
     }
-    public class ProgressHolder extends RecyclerView.ViewHolder{
+
+    public class ProgressHolder extends RecyclerView.ViewHolder {
         ProgressBar progressBar;
+
         public ProgressHolder(View itemView) {
             super(itemView);
-            progressBar = (ProgressBar)itemView.findViewById(R.id.progressBar_in_progressview);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar_in_progressview);
         }
     }
 
-    public class PostAdapter extends RecyclerView.Adapter{
+    public class PostAdapter extends RecyclerView.Adapter {
         List<Post> posts = new ArrayList<>();
         ProfileListener selectionListener;
 
-        public PostAdapter(List<Post> posts1,ProfileListener listener){
+        public PostAdapter(List<Post> posts1, ProfileListener listener) {
             this.posts = posts1;
             this.selectionListener = listener;
         }
+
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            if(viewType == EndPoints.VIEW_TYPE_REAL){
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item_single,parent,false);
+            if (viewType == EndPoints.VIEW_TYPE_REAL) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item_single, parent, false);
                 return new PostHolder(view);
-            }else if(viewType == EndPoints.VIEW_TYPE_PROGRESS_BAR){
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_bar_layout,parent,false);
+            } else if (viewType == EndPoints.VIEW_TYPE_PROGRESS_BAR) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_bar_layout, parent, false);
                 return new ProgressHolder(view);
-            }else {
+            } else {
                 return null;
             }
         }
 
         @Override
         public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-            if(holder instanceof PostHolder){
-                ((PostHolder)holder).bindPost(posts.get(position), position, selectionListener,((PostHolder)holder));
-                ((PostHolder)holder).bindProfilePic(holder.getAdapterPosition());
-                ((PostHolder)holder).setIsRecyclable(false);
-            }else {
-                ((ProgressHolder)holder).progressBar.setIndeterminate(true);
+            if (holder instanceof PostHolder) {
+                ((PostHolder) holder).bindPost(posts.get(position), position, selectionListener, ((PostHolder) holder));
+                ((PostHolder) holder).bindProfilePic(holder.getAdapterPosition());
+                ((PostHolder) holder).setIsRecyclable(false);
+            } else {
+                ((ProgressHolder) holder).progressBar.setIndeterminate(true);
             }
 
 
@@ -618,91 +700,17 @@ public class PostFragment extends Fragment {
 
         @Override
         public int getItemViewType(int position) {
-            if(allPosts.get(position) != null){
+            if (allPosts.get(position) != null) {
                 return EndPoints.VIEW_TYPE_REAL;
-            }else if(allPosts.get(position) == null) {
+            } else if (allPosts.get(position) == null) {
                 return EndPoints.VIEW_TYPE_PROGRESS_BAR;
-            }else {
+            } else {
                 return 500;
             }
         }
-        public void clearList(){
+
+        public void clearList() {
             this.posts.clear();
         }
-    }
-
-    public void showProfile(User user){
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(EndPoints.PASSED_USER, user);
-        FriendProfile friendProfile = new FriendProfile();
-        friendProfile.setPrivacy(false,true);
-        friendProfile.setArguments(bundle);
-        friendProfile.setCancelable(true);
-        friendProfile.show(getChildFragmentManager(),EndPoints.PASSED_USER);
-    }
-
-    public interface ProfileListener{
-
-        public void onPostNameSelected(int position);
-        public void onPostLiked(Post post,PostHolder holder);
-        public void onPostDislike(Post post,PostHolder holder);
-    }
-
-    public void apiLikePost(final Post post){
-        ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
-        Call<ServerResponse> likePost  = apiInterface.likePost(post.getId(),myPreferenceManager.getId());
-        likePost.enqueue(new Callback<ServerResponse>() {
-            @Override
-            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                if(response.isSuccessful()){
-                   post.setIsLiked(response.body().isError());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ServerResponse> call, Throwable t) {
-
-            }
-        });
-    }
-    public void apiDislikePost(final Post post){
-        ApiInterface apiInterface = ApiRetrofit.getClient().create(ApiInterface.class);
-        Call<ServerResponse> dislikePost = apiInterface.dislikePost(post.getId(), myPreferenceManager.getId());
-        dislikePost.enqueue(new Callback<ServerResponse>() {
-            @Override
-            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                if(response.isSuccessful()){
-                    post.setIsDisliked(response.body().isError());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ServerResponse> call, Throwable t) {
-
-            }
-        });
-    }
-    public void showTutorial(){
-        new MaterialIntroView.Builder(getActivity())
-                .enableDotAnimation(true)
-                .enableIcon(false)
-                .setFocusGravity(FocusGravity.CENTER)
-                .setFocusType(Focus.NORMAL)
-                .setDelayMillis(500)
-                .enableFadeAnimation(true)
-                .performClick(true)
-                .setShape(ShapeType.CIRCLE)
-                .setInfoText("Click to write a new post.")
-                .setTarget(fab)
-                .setIdempotent(true)
-                .setMaskColor(R.color.colorAccent)
-                .setUsageId("post_tut") //THIS SHOULD BE UNIQUE ID
-                .show();
-    }
-
-    //this  interface is for binding with a fragment when opened in this fragment/activity and it will initiate
-    // a call back to refresh the post for a new post make in the new post fragment
-    public interface SetNewPostListener{
-        public void onNewPost(boolean isRefresh);
     }
 }
